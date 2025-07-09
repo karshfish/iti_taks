@@ -1,0 +1,56 @@
+h1{
+    color: lightseagreen;
+    text-decoration: underline;
+    font-size: 70px;
+    margin: 1px;
+    
+    
+}
+
+ul{
+    
+    font-size: 40px;
+    margin: 10px;
+    
+}
+ol{
+    
+    font-size: 40px;
+    margin: 10px;
+}
+#brief{
+    list-style-type: none;
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+
+}
+.pagelabel{
+    border-radius: 20px;
+    background-color: lightgrey;
+    text-align: center;
+    font-weight: bold;
+}
+.pie{
+    height: 300px;
+}
+a{
+    
+    color:lightblue;
+}
+.imagelink{
+    display: inline;
+    width: 150px;
+    
+}
+.comment{
+    background-color: lightyellow;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+.contentheader{
+    text-align: left;
+    background-color: lightgrey;
+    padding-left: 10px;
+}
+

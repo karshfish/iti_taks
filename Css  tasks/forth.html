@@ -1,0 +1,123 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Options</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 40px;
+
+    }
+
+    .form-options {
+      width: 700px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+     
+    }
+
+    .form-option {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .form-option:last-child {
+      border-bottom: none;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      flex-shrink: 0;
+      border: 2px solid;
+    }
+
+    .icon.yellow { border-color: #FFD700; }
+    .icon.light-blue { border-color: #87CEFA; }
+    .icon.red { border-color: #FF6B6B; }
+
+    .icon img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .text {
+      flex-grow: 1;
+    }
+
+    .text h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: #0073e6;
+    }
+
+    .text p {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-option button {
+      background-color: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .form-option button:hover {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-options">
+    <div class="form-option">
+      <div class="icon yellow">
+        <img src="pencil-icon.png" alt="Pencil">
+      </div>
+      <div class="text">
+        <h2>General forms</h2>
+        <p>Build, design, and translate signup forms and response emails.</p>
+      </div>
+      <button>Select</button>
+    </div>
+
+    <div class="form-option">
+      <div class="icon light-blue">
+        <img src="arrow-icon.png" alt="Arrow">
+      </div>
+      <div class="text">
+        <h2>Embedded forms</h2>
+        <p>Generate HTML code to embed in your site or blog to collect signups.</p>
+      </div>
+      <button>Select</button>
+    </div>
+
+    <div class="form-option">
+      <div class="icon red">
+        <img src="monitor-icon.png" alt="Monitor">
+      </div>
+      <div class="text">
+        <h2>Subscriber popup</h2>
+        <p>Design a popup signup form that can be embedded on any site.</p>
+      </div>
+      <button>Select</button>
+    </div>
+  </div>
+
+</body>
+</html>
