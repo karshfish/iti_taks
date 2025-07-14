@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <head>
+            <title>
+                First Js task
+            </title>
+            <script>
+                do{
+                var input_str=prompt("Enter your array with . as seperator");
+                input_arr=input_str.replaceAll(" ","").split(".");
+            }
+            while(input_str=""||input_arr.length<=1|| input_arr.some(function(_val){return(isNaN(+_val))}))
+            console.log(input_arr)
+             var repeat_val=input_arr.filter(function(_val,_index){
+                return input_arr.indexOf(_val)!==_index
+            })
+            console.log(repeat_val);
+            var unique=repeat_val.filter(function(_val,_index){
+                return repeat_val.indexOf(_val)===_index
+            })
+            console.log(unique);
+            unique.forEach(element => {
+                document.writeln("repeated row is " + input_arr.indexOf(element) + "<br>")
+            });
+            </script>
+        </head>
+    </head>
+</html>
