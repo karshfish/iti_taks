@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>
+            fourth task
+        </title>
+        <script>
+            function isPhoneNumber(_num){
+                _num=_num.replaceAll(" ","")
+                if(!(_num.length ===11 && _num[3]==="-")){
+                    return false;
+                }
+                else{
+                number=_num.split("-");
+                var identifier= number[0];
+                var body=number[1];
+                console.log(body)
+                var avail_identifiers=["010","011","012","015"]
+                var right_identifier= avail_identifiers.some((elemnet)=>elemnet===identifier) 
+                right_body=true;
+                for(let i=0;i<body.length;i++){
+                    if(isNaN(+body[i])){
+                        right_body=false;
+                        
+                    }
+                }
+                console.log(right_body)
+                return right_body && right_identifier && number.length===2;
+                }
+            }
+            do{
+                input_name=prompt("Enter your name pls")
+            }
+            while(!isNaN(+input_name))
+            do{
+                user_num=prompt("Enter your phone number in the format of (xxx-xxxxxxx)")
+        }
+        while(!isPhoneNumber(user_num))
+        </script>
+    </head>
+</html>
