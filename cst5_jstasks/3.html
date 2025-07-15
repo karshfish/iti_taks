@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>
+            third task
+        </title>
+        <script>
+        var today = new Date();
+
+        // Get the full name of the day
+        var dayName = today.toLocaleDateString('en-US', { weekday: 'long' });
+
+        // Get a formatted date string (e.g., "July 15, 2025")
+        var formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        console.log(`Today's date is: ${formattedDate}`);
+        console.log(`Today is: ${dayName}`);
+        </script>
+    </head>
+</html>

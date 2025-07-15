@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+            first in the sixth
+        </title>
+        <script>
+            do{
+                input_str=prompt("Enter your full name")
+            }
+            while(!isNaN(input_str))
+            input_arr=input_str.split(" ");
+            var p_case= new Array(input_arr.length)
+            for (let i=0;i<input_arr.length;i++){
+                first=input_arr[i][0].toUpperCase();
+                second=input_arr[i].slice(1);
+                p_case[i]=first+second
+            }
+            p_case=p_case.reduce((pre,current)=>pre+" " +current)
+
+        </script>
+    </head>
+</html>
