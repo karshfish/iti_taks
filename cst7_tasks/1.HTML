@@ -13,17 +13,20 @@
                     <input type="radio" id="political" name="type" value="2"><span>Political</span>
                 
                     <input type="text" id="newsText" name="newsText" value="welcom">
+
+                    <input type="button" onclick="addNews()" value="add">
+                    <table id="content" border="2px solid black" cellspacing="5px"></table>
                 </div>
-                <input type="button" onclick="addNews()" value="add" >
+                
                 <br>
 
                 <span>Search</span><input type="text" id="search">
      
-            <div id="table">
-                <table id="content" border="2px solid black" cellspacing="5px"></table>
+            
+
                 <table id="search_result" border="2px solid black" cellspacing="5px"></table>
                 
-            </div>
+            
 
  
             <script>
@@ -72,18 +75,21 @@
 
             document.getElementById("search").addEventListener("keyup",function(e){
                 search_value=e.target.value;
+                console.log(search_value)
+                
                 // console.log(text_data.indexOf(search_value));
                 if(text_data.length>0){
                     for(let i =0; i<text_data.length;i++){
-                        if(text_data[i].indexOf(search_value)==-1){
-                            table=document.getElementById("search_result")
-                            table.insertRow(0)
-                            row,querySelector(".search_result")
-                            console.log(row)
-                            break;
+                        nth=text_data[i].indexOf(search_value)
+                        if(nth==-1){
+                            
+                            console.log("not found")
+                            
                         }
                         else{
+                            tr=document.querySelector("table tr:nth-child("+ i+")")
                             
+                            result=document.getElementById("search_result").appendChild(tr)
                             
                             break;
                         }
