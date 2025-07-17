@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>
+            First Dom Tree Task
+        </title>
+
+        <body>
+            
+                <div>
+                    <p>News type</p>
+                    <input type="radio" id ="sport" name="type" value="0"><span>Sport</span>
+                    <input type="radio" id="social" name="type" value="1"><span>Social</span>
+                    <input type="radio" id="political" name="type" value="2"><span>Political</span>
+                
+                    <input type="text" id="newsText" name="newsText">
+                </div>
+                <input type="button" onclick="addNews()" value="add" >
+                <br>
+
+                <span>Search</span><input type="text" id="search">
+     
+            <div id="table">
+                <table id="content"></table>
+                
+            </div>
+
+ 
+            <script>
+            text_data=new Array(0);
+            function addNews(){
+
+                //getting input
+                newsType= document.querySelector("input[name=type]:checked").value
+                newsText=document.getElementById("newsText").value
+                newsStyle=[
+                    ['sports','red'],
+                    ['social','yellow'],
+                    ['political', 'blue']
+                ]
+                //validating input (not repeated the same newsText)
+                repeated_news=false
+                repeated_type=false
+                text_data.some((_value)=>(_value[0]==newsText&&_value[1]==newsType))? repeated_news=true: text_data.push([newsText,newsType]);
+                console.log(text_data)
+
+
+
+                //creating new row
+                table=document.getElementById("content");
+                newRow=document.createElement("tr")
+                table.appendChild(newRow);
+                rows=document.getElementsByTagName("tr")
+
+                //adding cells
+                if(repeated_news){
+                    alert("news already exist")
+                }
+                else{
+                newsTextTd=document.createElement("td")
+                newsTextTd.textContent=newsText
+                newsTypeTd=document.createElement("td")
+                newsTypeTd.textContent=newsStyle[newsType][0]
+                rows[rows.length-1].appendChild(newsTextTd)
+                rows[rows.length-1].appendChild(newsTypeTd)
+                rows[rows.length-1].style.backgroundColor=newsStyle[newsType][1]
+                }
+                 console.log(text_data.length)
+            }
+           
+
+            document.getElementById("search").addEventListener("keydown",function(e){
+                search_value=e.target.value;
+                console.log(text_data.indexOf(search_value))
+                if(text_data.indexOf(search_value)==-1){
+                    console.log('no search found')
+                }
+                else{
+                    console.log("found")
+                    
+                }
+            })
+        </script>
+        </body>
+    </head>
+</html>
