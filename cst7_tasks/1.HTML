@@ -8,11 +8,11 @@
             
                 <div>
                     <p>News type</p>
-                    <input type="radio" id ="sport" name="type" value="0"><span>Sport</span>
+                    <input type="radio" id ="sport" name="type" value="0" checked><span>Sport</span>
                     <input type="radio" id="social" name="type" value="1"><span>Social</span>
                     <input type="radio" id="political" name="type" value="2"><span>Political</span>
                 
-                    <input type="text" id="newsText" name="newsText">
+                    <input type="text" id="newsText" name="newsText" value="welcom">
                 </div>
                 <input type="button" onclick="addNews()" value="add" >
                 <br>
@@ -20,7 +20,8 @@
                 <span>Search</span><input type="text" id="search">
      
             <div id="table">
-                <table id="content"></table>
+                <table id="content" border="2px solid black" cellspacing="5px"></table>
+                <table id="search_result" border="2px solid black" cellspacing="5px"></table>
                 
             </div>
 
@@ -32,6 +33,7 @@
                 //getting input
                 newsType= document.querySelector("input[name=type]:checked").value
                 newsText=document.getElementById("newsText").value
+
                 newsStyle=[
                     ['sports','red'],
                     ['social','yellow'],
@@ -68,16 +70,31 @@
             }
            
 
-            document.getElementById("search").addEventListener("keydown",function(e){
+            document.getElementById("search").addEventListener("keyup",function(e){
                 search_value=e.target.value;
-                console.log(text_data.indexOf(search_value))
-                if(text_data.indexOf(search_value)==-1){
-                    console.log('no search found')
+                // console.log(text_data.indexOf(search_value));
+                if(text_data.length>0){
+                    for(let i =0; i<text_data.length;i++){
+                        if(text_data[i].indexOf(search_value)==-1){
+                            table=document.getElementById("search_result")
+                            table.insertRow(0)
+                            row,querySelector(".search_result")
+                            console.log(row)
+                            break;
+                        }
+                        else{
+                            
+                            
+                            break;
+                        }
+
                 }
-                else{
-                    console.log("found")
+                }
+                 else{
                     
                 }
+
+
             })
         </script>
         </body>
