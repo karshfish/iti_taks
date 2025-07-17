@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>
+            6.2 task
+        </title>
+        <script>
+
+  let size = parseInt(prompt("Enter the size of the array:"));
+  if (isNaN(size) || size <= 0) {
+    alert("Invalid size. Please enter a positive number.");
+    return;
+  }
+
+  let arr = [];
+  for (let i = 0; i < size; i++) {
+    let value = prompt(`Enter number ${i + 1}:`);
+    let num = parseFloat(value);
+    if (isNaN(num)) {
+      alert("Invalid input. Please enter only numbers.");
+      return;
+    }
+    arr.push(num);
+  }
+
+  let repeat = true;
+  while (repeat) {
+    let choice = prompt(
+      "Choose an option:\n" +
+      "a: Display array in original order\n" +
+      "b: Display array in ascending order\n" +
+      "c: Display array in descending order\n" +
+      "d: Display reversed array\n" +
+      "e: Display even numbers only\n" +
+      "f: Display numbers divisible by a given number\n" +
+      "g: Display array with 30% discount\n" +
+      "h: Display all numbers concatenated with ***"
+    );
+
+    switch (choice) {
+      case "a":
+        alert("Original array: " + arr.join(", "));
+        break;
+      case "b":
+        alert("Ascending order: " + [...arr].sort((a, b) => a - b).join(", "));
+        break;
+      case "c":
+        alert("Descending order: " + [...arr].sort((a, b) => b - a).join(", "));
+        break;
+      case "d":
+        alert("Reversed array: " + [...arr].reverse().join(", "));
+        break;
+      case "e":
+        let evens = arr.filter(num => num % 2 === 0);
+        if (evens.length > 0) {
+          alert("Even numbers: " + evens.join(", "));
+        } else {
+          alert("No even numbers found.");
+        }
+        break;
+      case "f":
+        let divisor = parseFloat(prompt("Enter a number to divide by:"));
+        if (isNaN(divisor) || divisor === 0) {
+          alert("Invalid divisor.");
+        } else {
+          let divisible = arr.filter(num => num % divisor === 0);
+          if (divisible.length > 0) {
+            alert("Divisible numbers: " + divisible.join(", "));
+          } else {
+            alert("No numbers divisible by " + divisor);
+          }
+        }
+        break;
+      case "g":
+        let discounted = arr.map(num => (num * 0.7).toFixed(2));
+        alert("30% Discounted array: " + discounted.join(", "));
+        break;
+      case "h":
+        alert("Concatenated string: " + arr.join("***"));
+        break;
+      default:
+        alert("Invalid choice.");
+    }
+
+    repeat = confirm("Do you want to perform another operation?");
+  }
+
+
+
+
+        </script>
+    </head>
+</html>
