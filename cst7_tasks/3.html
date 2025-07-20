@@ -3,33 +3,67 @@
         <title>
             styles
         </title>
-        <script>
-            document.getElementById="text".style(queryString = window.location.search.replaceAll("&"," ").slice(1))
-        </script>
+
+        <style>
+
+        </style>
         <body>
             
         <p id="text"> THis a paragraph to be stayled THis a paragraph to be stayled THis a paragraph to be stayled THis a paragraph to be stayled THis a paragraph to be stayled</p>
             
-    <form action="">
-
-    </form>
     
-    <table>
-        <thead>
-            <td>font Family</td>
-            <td>textAlign</td>
+    <table border="5px solid black">
+        
+            <td>fontFamily <br>
+                <input type="radio" name = "fontFamily" value="Arial"> Arial <br>
+                <input type="radio" name = "fontFamily" value="Georgia"> Georgia<br>
+                <input type="radio" name = "fontFamily" value="Times New Roman"> Times New Roman<br>
+                <input type="radio" name = "fontFamily" value="Helvetica"> Helvetica<br>
+                <input type="radio" name = "fontFamily" value="Garamond"> Garamond<br>
+                <input type="radio" name = "fontFamily" value="Courier New"> Courier New<br>
+                <input type="radio" name = "fontFamily" value="Verdana"> Verdana<br>
+                <input type="radio" name = "fontFamily" value="Lucida Console"> Lucida Console<br>
+            </td>
+            <td>textAlign <br>
+                <input type="radio" name = "textAlign" value="left"> left <br>
+                <input type="radio" name = "textAlign" value="right"> rifgt<br>
+                <input type="radio" name = "textAlign" value="center"> center<br>
+                <input type="radio" name = "textAlign" value="justify"> justify<br>
+            </td>
             <td>lineHeight</td>
             <td>letterSpacing</td>
             <td>textIndent</td>
             <td>textTransform</td>
-            <td>text align</td>
-            <td>text align</td>
-            <td>text align</td>
+            <td>textDecoration</td>
+            <td>textBorder</td>
+            <td>borderColor</td>
         </thead>
     </table>
     
     
+
+ <script>
     
+      var text = document.getElementById("text");
+      var inputs = document.getElementsByTagName("input");
+
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === "radio") {
+          inputs[i].addEventListener("click", function () {
+            var name = this.name;
+            var value = this.value;
+
+            if (name === "borderColor") {
+              text.style.borderColor = value;
+            } else {
+              text.style[name] = value;
+            }
+          });
+        }
+      }
+    
+  </script>
+
     
     
     </body>

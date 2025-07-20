@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>
+            response for 6 
+        </title>
+        
+    </head>
+
+
+
+<body>
+    <img src="" alt="" id="photo"> Welcom <span> </span>
+        <script>
+        search=location.search;
+        search=search.slice(1).split("&")
+        name=search[0].split("=")[1].replaceAll("+"," ")
+        color=search[3].split("=")[1]
+        gender=search[2].split("=")[1]
+        gender_img=document.getElementById("photo")
+        text=document.querySelector("span")
+        text.innerText=name
+        text.style.color=color
+        if(gender==="male"){
+            gender_img.src="https://imgs.search.brave.com/wfODxDMjwdPWOePQgLVf4SCmJH4fSApOabxrBdzqGb8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzI0Lzk3Lzcx/LzM2MF9GXzEyNDk3/NzEzM180dm53SDJI/Qk45TUloQk1aN0J0/bVVWSmVTNlhiMXJs/dy5qcGc"
+
+        }
+        else{
+            gender_img.src="https://imgs.search.brave.com/hYsjfRNqJY8peVnhJE4p_yKoleZFQtz00SjBmV0x1V8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zaWxo/b3VldHRlLXlvdW5n/LXdvbWFuLWFub255/bW91cy1wcm9maWxl/LXBvcnRyYWl0LXBp/Y3R1cmUtc29jaWFs/LW1lZGlhLWF2YXRh/ci1zaWxob3VldHRl/LXlvdW5nLXdvbWFu/LWFub255bW91cy1w/cm9maWxlLTI5Mzky/MzAxMi5qcGc"
+        }
+
+    </script>
+</body>
+</html>
