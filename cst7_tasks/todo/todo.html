@@ -70,68 +70,72 @@
         </div>
 
         <script>
-                rows=document.getElementsByTagName("tr")
-                rowCount=rows.length-1
-                 tasks= new Array(0);
-            document.querySelector("input[value=add]").addEventListener("click",function(){
-            cell_content=document.querySelector("input[type=text]").value
-        
-             if(cell_content && tasks.indexOf(cell_content)===-1){
-                newRow=document.createElement("tr")
-                table= document.getElementById("task_list")
-                table.appendChild(newRow);
-               
-                lastRow=rows[rows.length-1]
-                
-                if(rowCount%2==0){
-                    lastRow.style.backgroundColor="lightblue"
-                }
-                else{
-                    lastRow.style.backgroundColor="lightgrey"
-                }
-                //adding checkbox
-                checkbox=document.createElement("td")
-                checkbox.innerHTML="<input type= checkbox>"
-                lastRow.appendChild(checkbox)
-
-                //adding task text
-                task_text=document.createElement("td")
-                
-                task_text.textContent=document.querySelector("input[type=text]").value
-                lastRow.appendChild(task_text)
-           
-                //adding delete button
-                delete_btn=document.createElement("td");
-                delete_btn.innerHTML="<button><i class=\"fa fa-trash\"></i></button>"
-                lastRow.appendChild(delete_btn)
-                delete_btn.addEventListener("click",function(){
-                    if(confirm("R U sure you want to delete this task")){
-                    parent=this.parentElement;
-                    parent.remove()}
+            rows=document.getElementsByTagName("tr")
+            rowCount=rows.length-1
+            tasks= new Array(0);
+            document.querySelector("input[value=add]").addEventListener("click",function(e){
+                        cell_content=document.querySelector("input[type=text]").value
+                        reapeated=tasks.filter(element => element.task_content.toLowerCase()==cell_content.toLowerCase())
+                        newRow=document.createElement("tr")
+                        table= document.getElementById("task_list")
+                        if(reapeated.length>0 && reapeated[0].status==false){
+                            alert("Task already Exist")
+                            return;
+                        }
+                        else if(reapeated.length>0 && reapeated[0].status==true){
+                            findtd=rows.filter(element=>element[1].textContent==cell_content)
+                        }
+                        table.appendChild(newRow);
                     
-                })
-                checkbox.addEventListener("change",function(){
-                    row=this.parentElement
-                    boxes=row.children
-                    console.log(boxes)
-                    if(boxes[0].firstChild.checked){
-                    boxes[1].style["textDecorationLine"]= "line-through"
-                }
-                    else
-                    {
-                        boxes[1].style["textDecorationLine"]= "none"
-                    }
-                })
-                rowCount++;
-                tasks.push(cell_content)
-                console.log(tasks)
-             }
-             else{
-                alert("You have to enter a Unique Task")
-             }
+                        lastRow=rows[rows.length-1]
+                    
+                        if(rowCount%2==0){
+                            lastRow.style.backgroundColor="lightblue"
+                            }
+                        else{
+                            lastRow.style.backgroundColor="lightgrey"
+                            }
+                            //adding checkbox
+                            checkbox=document.createElement("td")
+                            checkbox.innerHTML="<input type= checkbox>"
+                            lastRow.appendChild(checkbox)
+
+                            //adding task text
+                            task_text=document.createElement("td")
+
+                            task_text.textContent=document.querySelector("input[type=text]").value
+                            lastRow.appendChild(task_text)
+
+                            //adding delete button
+                            delete_btn=document.createElement("td");
+                            delete_btn.innerHTML="<button><i class=\"fa fa-trash\"></i></button>"
+                            lastRow.appendChild(delete_btn)
+                            delete_btn.addEventListener("click",function(){
+                                if(confirm("R U sure you want to delete this task")){
+                                parent=this.parentElement;
+                                parent.remove()}
+                                
+                            })
+                            checkbox.addEventListener("change",function(){
+                                row=this.parentElement
+                                boxes=row.children
+                                console.log(boxes)
+                                if(boxes[0].firstChild.checked){
+                                boxes[1].style["textDecorationLine"]= "line-through"
+                            }
+                                else
+                                {
+                                    boxes[1].style["textDecorationLine"]= "none"
+                                }
+                            })
+                            rowCount++;
+                            tasks.push({status:false,task_content:cell_content})
+                        console.log(tasks)
+                    }      
+     
+
             
-            }
-        )
+                )//end of add event 
         </script>
 
 
