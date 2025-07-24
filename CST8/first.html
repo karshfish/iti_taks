@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <title>Registeration form</title>
+        <style>
+            input[type=text]{
+                width: 100px;
+                margin: 1lh;
+            }
+            span{
+                font-weight: bold;
+                margin: 10px;
+            }
+            .error{
+                border:2px solid red !important;
+                font-weight: bold;
+                font-style: italic;
+                text-transform: capitalize;
+                display: inline-block;
+                width: 80px;
+                border-radius: 3px;
+                background-color: red;
+            }
+            .success{
+                border: 2px solid green !important;
+            }
+        </style>
+    </head>
+    <body>
+        
+    <form action="action.html">
+        <div id="userName-box">
+        <span><b>Enter your name:  </b></span>
+        <input type="text" name="name" id="name">
+        </div>
+        <div id="contry-box">
+            <span>Country:  </span>
+            <select name="Country" id="country">
+                <option value="Egypt">Egypt</option>
+                <option value="US">US</option>
+                <option value="Canada">Canada</option>
+            </select>
+        </div>
+
+        <div id="zip-box">
+                    <span>ZIP code:  </span>
+             <input type="text" value="1111" id="zip"><br>
+        </div>
+        <div id="email-box">
+            <span>Email:  </span>
+            <input type="email" name="email" id="email"> 
+        </div>
+        <div id="hobby">
+                    <span>Hobbies</span>
+                    <input type="checkbox" name="hobbies" id="reading"> Reading 
+                    <input type="checkbox" name="hobbies" id="swimming"> Swimming
+                    <input type="checkbox" name="hobbies" id="writing"> Writing 
+                    <input type="checkbox" name="hobbies" id="sleeping">Sleeping
+        </div>
+
+        <input type="submit" name="submit" id="submit" value="Register"><br>
+        <input type="reset" name="reset" id="reset" value="clear"><br>
+
+
+
+
+        <script>
+            window.addEventListener("load", function(){
+                userName=document.getElementById("name")
+                userCountry=document.getElementById("country")
+                userEmail=document.getElementById("email")
+                userZIP=document.getElementById("zip")
+                error=document.createElement("p")
+                error.textContent="ERROR"
+                error.className="error"
+                userName.focus();
+                userName.addEventListener("blur", function(e){
+                    if(!isValidUserName()){
+                            userName.focus()
+                            userName.select()
+                            document.getElementById("userName-box").appendChild(error)
+                    }
+                    else{
+                        userName.className="success"
+                        userCountry.focus()
+                    }
+                })
+                userCountry.addEventListener('change',function(e){
+                    
+                    switch(userCountry.value){
+                        case "Egypt": userZIP.value="1111";
+                        break;
+                        case "US" : userZIP.value="0501";
+                        break;
+                        case "Canada" : userZIP.value="1A1";
+                        break;
+                        
+                    }
+                })
+                userZip.addEventListener("focus",function(e){
+                    e.preventDefault()
+                })
+                userEmail.addEventListener("blur", function(e){
+                    if(!isValidEmail()){
+                            userEmail.focus()
+
+                            document.getElementById("email-box").appendChild(error)
+                    }
+                    else{
+                        userName.className="success"
+                        userCountry.focus()
+                    }
+                })
+                forms=document.forms[0].addEventListener("submit",function(e){
+                    if(!document.querySelector("input[type=checkbox]:checked")){
+                        e.preventDefault();
+                        document.getElementById("hobby").appendChild(error)
+                        
+                    }
+
+                })
+                document.forms[0].addEventListener('reset', function (e) {
+                if (!confirm("are you Sure ?")) {
+                    e.preventDefault();
+                }})
+                function isValidUserName(){
+                    return (/^[A-Z]{4,6}$/).test(userName.value);
+                }
+                function isValidEmail(){
+                    return (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).test(userEmail.value)
+                }
+            })
+        </script>
+    </form>
+    </body>
+</html>

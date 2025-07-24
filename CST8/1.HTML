@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>
+            First Dom Tree Task
+        </title>
+
+        <body>
+            
+                <div>
+                    <p>News type</p>
+                    <input type="radio" id ="sport" name="type" value="0" checked><span>Sport</span>
+                    <input type="radio" id="social" name="type" value="1"><span>Social</span>
+                    <input type="radio" id="political" name="type" value="2"><span>Political</span>
+                
+                    <input type="text" id="newsText" name="newsText" value="welcom">
+
+                    <input type="button" onclick="addNews()" value="add">
+                    <table id="content" border="2px solid black" cellspacing="5px"></table>
+                </div>
+                
+                <br>
+
+                <span>Search</span><input type="text" id="search">
+     
+            
+
+                <table id="search_result" border="2px solid black" cellspacing="5px"></table>
+                
+            
+
+ 
+            <script>
+            news_data=new Array(0);
+                newsStyle=[
+                    ['sports','red'],
+                    ['social','yellow'],
+                    ['political', 'blue']
+                ]
+            
+            function addNews(){
+
+                //getting input
+                newsType= document.querySelector("input[name=type]:checked").value
+                newsText=document.getElementById("newsText").value
+
+
+                //validating input (not repeated the same newsText)
+                repeated=news_data.filter((element)=>element.text.toLowerCase()==newsText.toLowerCase())
+                for(i=0;i<repeated.length;i++){
+                if(repeated.length>0 && repeated[i].type==newsType){
+                    alert("News Already Exist")
+                    return;
+                }
+                }//endloop
+                
+                    news_data.push({'text':newsText,'type':newsType})
+                
+
+
+                //creating new row
+                table=document.getElementById("content");
+                newRow=document.createElement("tr")
+                table.appendChild(newRow);
+                rows=document.getElementsByTagName("tr")
+
+                //adding cells
+
+                newsTextTd=document.createElement("td")
+                newsTextTd.textContent=newsText
+                newsTypeTd=document.createElement("td")
+                newsTypeTd.textContent=newsStyle[newsType][0]
+                rows[rows.length-1].appendChild(newsTextTd)
+                rows[rows.length-1].appendChild(newsTypeTd)
+                rows[rows.length-1].style.backgroundColor=newsStyle[newsType][1]
+            }
+
+            
+           
+
+            document.getElementById("search").addEventListener("keyup",function(e){
+                if(e.key="enter"){
+                    // search_find=news_data.filter(element=>element.text.toLowerCase()==this.value)
+                    searchVal=this.value.toLowerCase()
+                    rows=document.getElementsByTagName("tr")
+                    table=document.getElementById("content")
+                    for(i=0;i<rows.length;i++){
+                        rowVisible=false
+                        cells=rows[i].children
+                        for(j=0;j<cells.length;j++){
+                            if(cells[j].textContent.toLowerCase()==searchVal){
+                                rowVisible=true;
+                                break;
+                            }
+                        }
+                        if(rowVisible ||!searchVal){
+                            rows[i].style.display=''
+                        }
+                        else{
+                            rows[i].style.display='none'
+                        }
+                    }
+
+                    
+                    
+                    }
+
+                
+                else{
+                    e.preventDefault()
+                }
+
+
+
+            })
+        </script>
+        </body>
+    </head>
+</html>
