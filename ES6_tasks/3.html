@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>
+            third ES6
+        </title>
+        <script>
+            // Prompt user for values
+            const projectId = prompt("Enter project ID:");
+            const projectName = prompt("Enter project Name:");
+            const duration = prompt("Enter project Duration:");
+
+            // Create object using object literal
+            const project = {
+                projectId,
+                projectName,
+                duration,
+                printData() {
+                    console.log(`project name: ${this.projectName}, project Id: ${this.projectId}, project duration: ${this.duration}`);
+                }
+            };
+
+            // Example usage
+            project.printData();
+        </script>
+    </head>
+</html>
