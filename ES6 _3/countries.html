@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>
+            Country and neighbor
+        </title>
+        <script>
+            async function mainContry(){
+                let country='Egypt'
+                Info= await fetch(`https://restcountries.com/v2/name/${country}`)
+                country= await Info.json()
+                return country
+            }
+            async function Neighbor(mainContry){
+                mainName=await mainContry;
+                console.log(mainName[0].region)
+                continent=mainName[0].region
+                Info=await fetch(`https://restcountries.com/v2/region/${continent}`)
+                country=await Info.json()
+                return country
+
+            }
+            (async function mainCall(){
+                main=await mainContry();
+                console.log(main)
+                main_img=document.querySelector("#mainCountry>img")
+                main_img.src=main.flag
+                neighbor= await Neighbor(main);
+
+            })()
+
+        </script>
+        <style>
+            div{
+                border: 10px solid black;
+                display: inline-block;
+                width: 200px;
+                height: 500px;
+                
+
+            }
+            div>img{
+                
+                width: 180px;
+                height: 100px;
+            }
+            li{
+                list-style: none;
+                padding: 0px;
+                margin: 3px;
+                
+            }
+            #Neighbor{
+                width: 180px;
+                height: 400px;
+
+            }
+        </style>
+        <body>
+            <div id="mainCountry">
+                <img src="#" alt="country_flag">
+                <h3>Country Name</h3>
+                <h5>continent</h5>
+                <ul>
+                    <li>population</li>
+                    <li>Language</li>
+                    <li>Currency</li>
+                </ul>
+            </div>
+            <div id="Neighbor">
+                <img src="#" alt="country_flag">
+                <h3>Country Name</h3>
+                <h5>continent</h5>
+                <ul>
+                    <li>population</li>
+                    <li>Language</li>
+                    <li>Currency</li>
+                </ul>
+            </div>
+        </body>
+    </head>
+</html>

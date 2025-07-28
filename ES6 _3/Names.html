@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>
+            Fetch user Names
+        </title>
+        <script>
+            var arrUser=[];
+            (async function users(){
+            var allusers= await fetch("https://jsonplaceholder.typicode.com/users")
+            var allusers_jsobjects=await allusers.json()
+            arrUser=allusers_jsobjects;
+            allusers_jsobjects.forEach((_user)=>{
+                new_btn=document.createElement("input")
+                new_btn.type="button"
+                new_btn.value=_user.name
+                new_btn.addEventListener('click', function(e){
+                    document.getElementById("userName").textContent=_user.username
+                    document.getElementById("email").textContent=_user.email
+                    document.getElementById("phone").textContent=_user.phone
+                    document.getElementById("website").textContent=_user.website
+
+                })
+                document.getElementById("users").appendChild(new_btn)
+            })
+        })()
+
+        </script>
+        <style>
+            input[type=button]{
+                margin: 10px;
+                background-color: blue;
+                display: inline-block;
+                width: 150px;
+                color: azure;
+                padding: 2px;
+                text-align: center;
+            }
+            div{
+                border: 5px solid red;
+                background-color: brown;
+            }
+            li{
+                list-style: none;
+            }
+        </style>
+        <body>
+            <div id="users">
+
+            </div>
+            <div id="userInfo">
+            <ul id="content">
+                <li id="userName"></li>
+                <li id="email"></li>
+                <li id="phone"></li>
+                <li id="website"></li>
+            </ul>
+            </div>
+        </body>
+    </head>
+</html>
