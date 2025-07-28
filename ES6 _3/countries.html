@@ -12,9 +12,9 @@
             }
             async function Neighbor(mainContry){
                 mainName=await mainContry;
-                // console.log(mainName[0].region)
-                continent=mainName[0].region
-                Info=await fetch(`https://restcountries.com/v2/region/${continent}`)
+                console.log(mainName[0].borders[1])
+                border=mainName[0].borders[1]
+                Info=await fetch(`https://restcountries.com/v2/alpha/${border}`)
                 country=await Info.json()
                 return country
 
@@ -25,23 +25,32 @@
                 main_img.src=main[0].flag
                 document.getElementById("countryName").textContent=main[0].name
                 document.getElementById("region").textContent=main[0].region
-                document.getElementById("population").textContent=main[0].population
+                document.getElementById("population").textContent=numberFormat(main[0].population)+" people"
                 document.getElementById("lang").textContent=main[0].languages[0].name
-                document.getElementById("currency").textContent=main[0].currencies[0].code
+                document.getElementById("currency").textContent=main[0].currencies[0].name
                 neighbor= await Neighbor(main);
                 console.log(neighbor)
                 rand=Math.floor(Math.random()*60)
                 // console.log(rand)
                 neighbor_img=document.querySelector("#Neighbor>img")
-                neighbor_img.src=neighbor[rand].flag
-                document.getElementById("neighborName").textContent=neighbor[rand].name
-                document.getElementById("neighborRegion").textContent=neighbor[rand].region
-                document.getElementById("neighborPopulation").textContent=neighbor[rand].population
-                document.getElementById("neighborLang").textContent=neighbor[rand].languages[0].name
-                document.getElementById("neighborCurrency").textContent=neighbor[rand].currencies[0].code
+                neighbor_img.src=neighbor.flag
+                document.getElementById("neighborName").textContent=neighbor.name
+                document.getElementById("neighborRegion").textContent=neighbor.region
+                document.getElementById("neighborPopulation").textContent=numberFormat(neighbor.population)+" people"
+                document.getElementById("neighborLang").textContent=neighbor.languages[0].name
+                document.getElementById("neighborCurrency").textContent=neighbor.currencies[0].name
 
 
             })()
+            function numberFormat(number){
+                let compact=number/1000000
+                if(!(compact> 1000)){
+                    return`${compact.toFixed(2)}M`
+
+                }
+                else
+                return `${(compact/10).toFixed(2)}B`
+            }
 
         </script>
         <style>
@@ -119,7 +128,7 @@
                 </ul>
             </div>
             <div id="side">
-                <p>Nrighbor Country</p>
+                <p>Neighbor Country</p>
                 <div id="Neighbor">
                 <img src="#" alt="country_flag">
                 <h3 id="neighborName">Country Name</h3>
