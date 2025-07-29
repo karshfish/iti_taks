@@ -1,0 +1,92 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+#mainwrapper {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid black;
+    margin: 10px auto;
+}
+
+#mainwheader, #mainfooter {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+    background-color: lightblue;
+    text-align: center;
+}
+
+#mainnav {
+    border: 1px solid black;
+    background-color: darkblue;
+    color: white;
+    margin: 5px;
+}
+
+    #mainnav > ul > li {
+        list-style: none;
+        width: 100px;
+        padding: 5px;
+        margin: 5px 20px;
+        display: inline-block;
+    }
+
+        #mainnav > ul > li > a {
+            text-decoration: none;
+            color: white;
+            /*color:rgb(155 53 53);*/
+        }
+
+            #mainnav > ul > li > a:hover {
+                color: yellow;
+                font-weight: bold;
+            }
+
+#mainsection {
+    width: 55%;
+    border: 2px solid black;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+}
+
+    #mainsection > article {
+        border: 1px solid black;
+        margin: 5px;
+        padding: 10px 0;
+    }
+
+        #mainsection > article:nth-child(odd) {
+            background-color: lightgreen;
+        }
+
+        #mainsection > article:nth-child(even) {
+            background-color: lightskyblue;
+        }
+
+#mainaside {
+    width: 30%;
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid black;
+    float: right;
+}
+
+    #mainaside > p {
+        margin: 5px;
+        padding: 5px;
+    }
+
+        #mainaside > p:nth-child(odd) {
+            background-color: lightgray;
+        }
+
+        #mainaside > p:nth-child(even) {
+            background-color: lightcoral;
+        }
+
+#mainfooter {
+    clear: both;
+}
