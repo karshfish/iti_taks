@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex</title>
+</head>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      ul {
+        display: flex;
+        justify-content: space-around;
+        /* background-color: blue; */
+        /* border-radius: 50%; */
+        height: 5vh;
+        color: brown;
+      }
+      ul > li {
+        list-style: none;
+      }
+      #intro {
+        background-image: url(./laptop_top.jpg);
+        width: 100vw;
+        height: 95vh;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #intro button {
+        width: 100px;
+        border-radius: 50px;
+        background-color: brown;
+        color: white;
+        border: 1px dashed linen;
+      }
+      #intro button:hover {
+        color: brown;
+        background: white;
+      }
+      #intro h4 {
+        color: white;
+        padding: 10px;
+      }
+      ul > li:hover {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>Home</li>
+      <li>About us</li>
+      <li>contact us</li>
+    </ul>
+    <section id="intro">
+      <h4>ITI TANTA</h4>
+      <button>Register</button>
+    </section>
+  </body>
+</html>
