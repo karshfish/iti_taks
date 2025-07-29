@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <title>
+            Country and neighbor
+        </title>
+        <script>
+            async function mainContry(){
+                let country='Egypt'
+                Info= await fetch(`https://restcountries.com/v2/name/${country}`)
+                country= await Info.json()
+                return country
+            }
+            async function Neighbor(mainContry){
+                mainName=await mainContry;
+                console.log(mainName[0].borders[1])
+                border=mainName[0].borders[1]
+                Info=await fetch(`https://restcountries.com/v2/alpha/${border}`)
+                country=await Info.json()
+                return country
+
+            }
+            (async function mainCall(){
+                main=await mainContry();
+                main_img=document.querySelector("#mainCountry>img")
+                main_img.src=main[0].flag
+                document.getElementById("countryName").textContent=main[0].name
+                document.getElementById("region").textContent=main[0].region
+                document.getElementById("population").textContent=numberFormat(main[0].population)+" people"
+                document.getElementById("lang").textContent=main[0].languages[0].name
+                document.getElementById("currency").textContent=main[0].currencies[0].name
+                neighbor= await Neighbor(main);
+                console.log(neighbor)
+                rand=Math.floor(Math.random()*60)
+                // console.log(rand)
+                neighbor_img=document.querySelector("#Neighbor>img")
+                neighbor_img.src=neighbor.flag
+                document.getElementById("neighborName").textContent=neighbor.name
+                document.getElementById("neighborRegion").textContent=neighbor.region
+                document.getElementById("neighborPopulation").textContent=numberFormat(neighbor.population)+" people"
+                document.getElementById("neighborLang").textContent=neighbor.languages[0].name
+                document.getElementById("neighborCurrency").textContent=neighbor.currencies[0].name
+
+
+            })()
+            function numberFormat(number){
+                let compact=number/1000000
+                if(!(compact> 1000)){
+                    return`${compact.toFixed(2)}M`
+
+                }
+                else
+                return `${(compact/10).toFixed(2)}B`
+            }
+
+        </script>
+        <style>
+
+            div{
+                
+                display: inline-block;
+
+                
+
+            }
+            #mainwrapper{
+                border: 3px solid black;
+                background-color: lightgrey;
+                height: 400px;
+                width: 800px;
+            }
+
+            #Neighbor{
+                height: 300px;
+                width: 300px;
+                background-color: white;
+                margin: 2px;
+                padding: 2px;
+                position: absolute;
+                left: 400px;
+                top: 80px;
+                text-align: center;
+
+            }
+            #mainCountry{
+                height: 300px;
+                width: 300px;
+                background-color: white;
+                margin: 2px;
+                padding: 2px;
+                position: absolute;
+                left: 20px;
+                top: 50px;
+                text-align: center;
+                
+            }
+             div>img{
+                
+                width: 100%;
+                height: 150px;
+            }
+            ul{
+                text-align: left;
+            }
+            li{
+                list-style: none;
+            }
+            h3,h5,ul,li,p{
+                margin:0px;
+                padding: 0;
+            }
+            #side>p{
+                position: relative;
+                left: 400px;
+                top: 50px;
+            }
+
+        </style>
+        <body>
+        <div id="mainwrapper">
+            <div id="mainCountry">
+                <img src="#" alt="country_flag">
+                <h3 id="countryName">Country Name</h3>
+                <h5 id="region">continent</h5>
+                <ul>
+                    <li id="population">population</li>
+                    <li id="lang">Language</li>
+                    <li id="currency">Currency</li>
+                </ul>
+            </div>
+            <div id="side">
+                <p>Neighbor Country</p>
+                <div id="Neighbor">
+                <img src="#" alt="country_flag">
+                <h3 id="neighborName">Country Name</h3>
+                <h5 id="neighborRegion">continent</h5>
+                <ul>
+                    <li id="neighborPopulation">population</li>
+                    <li id="neighborLang">Language</li>
+                    <li id="neighborCurrency">Currency</li>
+                </ul>
+            </div>
+            </div>
+
+        </div>
+        </body>
+    </head>
+</html>
