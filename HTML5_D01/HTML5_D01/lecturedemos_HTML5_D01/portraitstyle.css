@@ -1,0 +1,18 @@
+﻿
+#mainwheader, #mainfooter {
+    background-color: darkred;
+    color: white;
+}
+
+#mainnav > ul > li {
+    width: 50px;
+}
+
+#mainsection {
+    width: 80%;
+    margin: 5px auto;
+}
+
+#mainaside {
+    display: none;
+}
