@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>flex</title>
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></head>
     <style>
       * {
         box-sizing: border-box;
@@ -52,6 +52,82 @@
       ul > li:hover {
         color: blue;
       }
+#location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 50vh;
+  justify-content: flex-start;
+}
+
+#headLocation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+#locationContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#locationContent img {
+  width: 50%;
+  height: 100%;
+  margin: 2%;
+  
+}
+
+#buttonLocation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 70px);
+  gap :10px;
+  width: 40%;
+  height: 300px;
+  overflow-y:auto ;
+}
+
+#buttonLocation button {
+  width: 90%;
+  height: 70%;
+  background-color: lightgrey;
+  color: green;
+  border: none;
+  justify-self: center;
+}
+#buttonLocation .main {
+  color: red;
+}
+#locals{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#locals p{
+  font-size: small;
+}
+.locals-box{
+  width: 10px;
+  height: 10px;
+  padding: none;
+  margin: 5px;
+  border: 1px solid black;
+}
+ #locals #locals1{
+  background-color: red;
+  
+}
+ #locals #locals2{
+  background-color: green;
+}
     </style>
   </head>
   <body>
@@ -64,5 +140,43 @@
       <h4>ITI TANTA</h4>
       <button>Register</button>
     </section>
+      <section id="location">
+      <div id="headLocation">
+        <h1>ITI Locations</h1>
+        <h3>ITI main location all over the country</h3>
+      </div>
+      <div id="locationContent">
+        <img src="Screenshot_2025-07-30_09-34-08.png" alt="map">
+        <div id="buttonLocation">
+          <button  class="main" value="ITI-Smart village ">Smart Village</button>
+          <button  value="ITI Asuit">Asuit</button>
+          <button  value="ITI-Ismalia">Ismalia</button>
+          <button  value="ITI-Menofia">Menofia</button>
+          <button  value="ITI-Alexandria">Alexandria</button>
+          <button  value="ITI-Aswan">Aswan</button>
+          <button  value="ITI-Mansoura">Mansoura</button>
+          <button  value="ITI-Minya">Minya</button>
+          <button  class="main" value="ITI-Smart village ">Smart Village</button>
+          <button  value="ITI Asuit">Asuit</button>
+          <button  value="ITI-Ismalia">Ismalia</button>
+          <button  value="ITI-Menofia">Menofia</button>
+          <button  value="ITI-Alexandria">Alexandria</button>
+          <button  value="ITI-Aswan">Aswan</button>
+          <button  value="ITI-Mansoura">Mansoura</button>
+          <button  value="ITI-Minya">Minya</button>
+          <div id="locals" >
+            <div id="locals1" class="locals-box"></div><p>Main branches</p>
+            <div id="locals2" class="locals-box"></div><p>Branches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div id="contactInfo">
+        <p>Adress</p>
+        <p>phone</p>
+        <p>email</p>
+      </div>
+    </footer>
   </body>
 </html>
