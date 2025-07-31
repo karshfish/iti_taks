@@ -56,8 +56,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
-  height: 50vh;
+  width: 99vw;
+  height: fit-content;
   justify-content: flex-start;
 }
 
@@ -74,8 +74,8 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  
 }
 
 #locationContent img {
@@ -88,16 +88,18 @@
 #buttonLocation {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(4, 70px);
+  grid-template-rows: 1fr 1fr 1fr  1fr;
   gap :10px;
   width: 40%;
   height: 300px;
-  overflow-y:auto ;
+  overflow-y: auto;
+ 
+  
 }
 
 #buttonLocation button {
   width: 90%;
-  height: 70%;
+  height: 100%;
   background-color: lightgrey;
   color: green;
   border: none;
@@ -128,7 +130,60 @@
  #locals #locals2{
   background-color: green;
 }
+footer{
+  display: flex;
+  flex-direction: row;
+  width: 99vw;
+  height: fit-content;
+  background-color: darkgrey;
+  color: white;
+}
+footer #contactInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 50%;
+}
+footer #followLinks{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#followLinks #followIcons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+i{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 1px;
+  margin: 1px;
+  background-color: white;
+  color: red;
+  text-align: center; 
+}
+.Info{
+  display: flex;
+  flex-direction: row;
+}
+
     </style>
+    <script>
+      window.addEventListener("load",function(e){
+        let buttons=document.getElementsByTagName("button")
+        for(let i=1;i<buttons.length;i++){
+          buttons[i].addEventListener("click",function(e){
+            let contacts=document.querySelectorAll(".Info>p")
+            branchName=this.textContent
+            contacts[0].textContent=branchName+" location"
+            contacts[1].textContent=branchName+" phone"
+            contacts[2].textContent=branchName+" email"
+          })//end button event
+        }
+      })//end load
+    </script>
   </head>
   <body>
     <ul>
@@ -149,21 +204,13 @@
         <img src="Screenshot_2025-07-30_09-34-08.png" alt="map">
         <div id="buttonLocation">
           <button  class="main" value="ITI-Smart village ">Smart Village</button>
-          <button  value="ITI Asuit">Asuit</button>
-          <button  value="ITI-Ismalia">Ismalia</button>
-          <button  value="ITI-Menofia">Menofia</button>
-          <button  value="ITI-Alexandria">Alexandria</button>
-          <button  value="ITI-Aswan">Aswan</button>
-          <button  value="ITI-Mansoura">Mansoura</button>
-          <button  value="ITI-Minya">Minya</button>
-          <button  class="main" value="ITI-Smart village ">Smart Village</button>
-          <button  value="ITI Asuit">Asuit</button>
-          <button  value="ITI-Ismalia">Ismalia</button>
-          <button  value="ITI-Menofia">Menofia</button>
-          <button  value="ITI-Alexandria">Alexandria</button>
-          <button  value="ITI-Aswan">Aswan</button>
-          <button  value="ITI-Mansoura">Mansoura</button>
-          <button  value="ITI-Minya">Minya</button>
+          <button>Asuit</button>
+          <button>Ismalia</button>
+          <button>Menofia</button>
+          <button>Alexandria</button>
+          <button>Aswan</button>
+          <button>Mansoura</button>
+          <button>Minya</button>
           <div id="locals" >
             <div id="locals1" class="locals-box"></div><p>Main branches</p>
             <div id="locals2" class="locals-box"></div><p>Branches</p>
@@ -173,9 +220,27 @@
     </section>
     <footer>
       <div id="contactInfo">
+        <h1>Contact Us</h1>
+        <div class="Info">
+         <i class="fa fa-map-marker "></i>
         <p>Adress</p>
-        <p>phone</p>
+        </div>
+        <div class="Info">
+        <i class="fa fa-phone"></i>
+         <p>phone</p>
+        </div>
+        <div class="Info">
+        <i class="fa fa-envelope"></i>
         <p>email</p>
+        </div>
+      </div>
+      <div id="followLinks">
+        <h1>Follow US</h1>
+        <div id="followIcons">
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-twitter"></i>
+        <i class="fa fa-youtube"></i>
+        </div>
       </div>
     </footer>
   </body>
