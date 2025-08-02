@@ -8,8 +8,15 @@ for(let  i=1;i<videosCount+1;i++){
     newButton.textContent=`video ${i}`
     newButton.className="videoButton"
     newButton.addEventListener("click",function(e){
-       video.src=`lol/${i}.mkv`
-       console.log(e.target.name)
+        src=video.src
+        videoName=+src[src.length-5]
+        buttonName=e.target.name;
+        if(buttonName>videoName){
+            video.src=`lol/${videoName+1}.mkv`
+        }else if(buttonName<videoName){
+            video.src=`lol/${videoName-1}.mkv`
+        }
+        
     })//end button click event
     listWrapper.appendChild(newButton)
 }//end loop
