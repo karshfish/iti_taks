@@ -12,7 +12,9 @@ for(let  i=1;i<videosCount+1;i++){
         videoName=+src[src.length-5]
         buttonName=e.target.name;
         if(buttonName>videoName){
-            video.src=`lol/${videoName+1}.mkv`
+            video.src=`lol/${videoName+1}.mkv`;
+            string=(videoName+1).toString()
+            document.querySelector(`button[name="${string}"]`).focus()
         }else if(buttonName<videoName){
             video.src=`lol/${videoName-1}.mkv`
         }
