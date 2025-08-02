@@ -16,6 +16,7 @@ for(let  i=1;i<videosCount+1;i++){
         }else if(buttonName<videoName){
             video.src=`lol/${videoName-1}.mkv`
         }
+        console.log(video.src)
         
     })//end button click event
     listWrapper.appendChild(newButton)
