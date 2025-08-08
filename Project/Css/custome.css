@@ -1,0 +1,21 @@
+/* ol{
+    list-style: none;
+    
+}
+.accordion-item{
+   
+   border: none;
+   height: 2%;
+    
+} */
+.hoverLi{
+    background-color: aliceblue;
+}
+.hoverLi:hover{
+    background-color: brown;
+}
+.page-item.active .page-link {
+  background-color: red !important; /* e.g., #007bff for blue */
+  border-color: #07faaa !important; /* e.g., #007bff */
+  color: #fff !important; /* Keep text color white for contrast */
+}
