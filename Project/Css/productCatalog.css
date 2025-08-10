@@ -8,7 +8,7 @@
    height: 2%;
     
 } */
- :root{
+:root {
     --color-1: #111111;
     --color-2: #000000;
     --color-3: #0A0A0A;
@@ -36,27 +36,31 @@
     --color-25: #94928B;
     --color-26: #ec7e18;
     --color-27: #FF9C00;
- }
- body{
+}
+
+body {
     background-color: var(--color-19);
- }
-.hoverLi{
+}
+
+.hoverLi {
     background-color: aliceblue;
 }
-.hoverLi:hover{
+
+.hoverLi:hover {
     background-color: brown;
 }
-.pagination{
+
+.pagination {
     display: inline-flex;
 }
-.page-item{
+
+.page-item {
     margin: 0.1%;
 }
-.page-link:hover{
-    background-color: var(--color-27);
-}
-.pagination li a.page-link, .pagination li:first-child
-a.page-link, .pagination li:last-child a.page-link{
+
+.pagination li a.page-link,
+.pagination li:first-child a.page-link,
+.pagination li:last-child a.page-link {
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -65,12 +69,15 @@ a.page-link, .pagination li:last-child a.page-link{
     justify-content: space-around;
     background-color: var(--color-18);
     padding: 0%;
-    
+    color: var(--color-12);
+
 
 }
 
+
+
 .page-item.active .page-link {
-  background-color:var(--color-1) !important; 
-  border-color: var(--color-18) !important; 
-  color: #fff !important; 
+    background-color: var(--color-1) !important;
+    border-color: var(--color-18) !important;
+    color: #fff !important;
 }

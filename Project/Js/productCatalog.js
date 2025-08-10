@@ -5,6 +5,16 @@ if (Qs) {
     Qs = Qs.split("?")[1].split("=")
     console.log(Qs)
 }
+
+
+
+  fetch("../partials/navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    });
+
+
 async function productsJson() {
     const fetchedProducts = await fetch("https://openlibrary.org/people/mekBot/books/already-read.json", { cache: 'force-cache' })
     // console.log(fetchedProducts)
