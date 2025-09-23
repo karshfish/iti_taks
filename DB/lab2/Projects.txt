@@ -1,0 +1,16 @@
+onf [Proj_NUM, Proj_name, Emloyee_Number, Employee_name, job_class, CHG_hours, HOURS_BILLED, TOTAL_CHARGE ]
+------------------------------------------------------------------------------------------------------------
+1nf : [#Proj_NUM, Proj_name, #Employee_Number, Employee_name, job_class, CHG_hours, HOURS_BILLED, TOTAL_CHARGE]
+------------------------------------------------------------------------------------------------------------
+2nf :
+Project   [#Proj_NUM, Proj_name]
+Employee  [#Employee_Number, Employee_name, job_class(FK)]
+Job       [#job_class, CHG_hours]
+Assignment[#Proj_NUM(FK), #Employee_Number(FK), HOURS_BILLED]
+-------------------------------------------------------------------------------------------------------------
+
+3nf : 
+Project   [#Proj_NUM, Proj_name]
+Employee  [#Employee_Number, Employee_name, job_class(FK)]
+Job       [#job_class, CHG_hours]
+Assignment[#Proj_NUM(FK), #Employee_Number(FK), HOURS_BILLED]

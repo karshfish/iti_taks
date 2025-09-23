@@ -1,0 +1,16 @@
+.headerClass{
+    border: 2px solid lightsalmon;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.sectionClass{
+    border: 2px solid lightskyblue;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

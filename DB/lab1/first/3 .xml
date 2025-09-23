@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Restaurant ERD" id="restaurant-erd-1">
+    <mxGraphModel dx="1234" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0">
+      <root>
+        <!-- root cells -->
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ==== Entities (stacked vertically) ==== -->
+
+        <!-- Branch entity -->
+        <mxCell id="e1" value="Branch" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Branch attributes -->
+        <mxCell id="a1" value="<u>branchID</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="40" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="address" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="80" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="contactNumber" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Staff entity -->
+        <mxCell id="e2" value="Staff" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="200" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Staff attributes -->
+        <mxCell id="a4" value="<u>staffID</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="200" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="fullName" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="240" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a6" value="age" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="200" width="80" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a7" value="city" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="240" width="80" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a8" value="region" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="280" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a9" value="role" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="280" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a10" value="joiningDate" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="380" y="280" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a11" value="monthlySalary" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="280" width="120" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Customer entity -->
+        <mxCell id="e3" value="Customer" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="360" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Customer attributes -->
+        <mxCell id="a12" value="<u>customerCode</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="360" width="140" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a13" value="name" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="400" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a14" value="contactNumber" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="360" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- MenuItem entity -->
+        <mxCell id="e4" value="MenuItem" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- MenuItem attributes -->
+        <mxCell id="a15" value="<u>itemCode</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="520" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a16" value="itemName" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="560" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a17" value="unitPrice" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="520" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a18" value="category" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="560" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Order entity -->
+        <mxCell id="e5" value="Order" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="680" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Order attributes -->
+        <mxCell id="a19" value="<u>orderID</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="680" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a20" value="deliveryAddress" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="720" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a21" value="totalBill" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="680" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a22" value="dateTime" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="720" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- DeliveryBoy entity -->
+        <mxCell id="e6" value="DeliveryBoy" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=#000000;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="840" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <!-- DeliveryBoy attributes -->
+        <mxCell id="a23" value="<u>nationalID</u>" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="840" width="140" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a24" value="name" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="140" y="880" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a25" value="contactNumber" style="shape=ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="540" y="840" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ==== Relationships (diamonds) with positions between entities ==== -->
+
+        <!-- Branch -- Has Staff -- Staff -->
+        <mxCell id="r1" value="Has Staff" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="140" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <!-- cardinality labels -->
+        <mxCell id="c_r1_b" value="1..1" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="140" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r1_s" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch -- Manages -- Staff (manager relation, 1:1) -->
+        <mxCell id="r2" value="Manages" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="170" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r2_b" value="1..1" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="170" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r2_s" value="0..1" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="170" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch -- Serves -- MenuItem -->
+        <mxCell id="r3" value="Serves" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r3_b" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="440" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r3_m" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="440" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Customer -- Places -- Order -->
+        <mxCell id="r4" value="Places" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r4_c" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="480" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r4_o" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="480" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Order -- Contains -- MenuItem (M:N) -->
+        <mxCell id="r5" value="Contains" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="600" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r5_o" value="1..1" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="600" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r5_m" value="1..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="600" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- DeliveryBoy -- Delivers -- Order -->
+        <mxCell id="r6" value="Delivers" style="shape=rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="760" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r6_d" value="0..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="760" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_r6_o" value="0..*" style="text;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="760" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ==== Edges connecting entities to relationships ==== -->
+
+        <!-- Branch to Has Staff -->
+        <mxCell id="edge_e1_r1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="r1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r1_e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r1" target="e2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch to Manages to Staff -->
+        <mxCell id="edge_e1_r2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="r2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r2_e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r2" target="e2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch to Serves to MenuItem -->
+        <mxCell id="edge_e1_r3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="r3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r3_e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r3" target="e4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Customer Places Order -->
+        <mxCell id="edge_e3_r4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e3" target="r4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r4_e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r4" target="e5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Order Contains MenuItem -->
+        <mxCell id="edge_e5_r5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e5" target="r5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r5_e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r5" target="e4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- DeliveryBoy Delivers Order -->
+        <mxCell id="edge_e6_r6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e6" target="r6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_r6_e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="r6" target="e5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ==== Attribute connectors (entity <-> attribute) ==== -->
+
+        <!-- Branch attributes connections -->
+        <mxCell id="edge_e1_a1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="a1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e1_a2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="a2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e1_a3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e1" target="a3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Staff attributes -->
+        <mxCell id="edge_e2_a4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e2_a11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e2" target="a11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Customer attributes -->
+        <mxCell id="edge_e3_a12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e3" target="a12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e3_a13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e3" target="a13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e3_a14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e3" target="a14">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- MenuItem attributes -->
+        <mxCell id="edge_e4_a15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e4" target="a15">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e4_a16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e4" target="a16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e4_a17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e4" target="a17">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e4_a18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e4" target="a18">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Order attributes -->
+        <mxCell id="edge_e5_a19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e5" target="a19">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e5_a20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e5" target="a20">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e5_a21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e5" target="a21">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e5_a22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e5" target="a22">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- DeliveryBoy attributes -->
+        <mxCell id="edge_e6_a23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e6" target="a23">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e6_a24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e6" target="a24">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_e6_a25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=none;" edge="1" parent="1" source="e6" target="a25">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,20 @@
+##DreamHome
+0nf: default 
+customer[#Customer_NO,, CName, preperty_no, PAddress, RentStart, RentFinish, Rent, Owner_No, OName]
+-----------------------------------------------------------------------------------------------
+1nf: 1nf {Multi values attributes - Composite attributes - Repeating Groups (Multi Values + related attributes ) }
+Customer [#Customer_no, CName, RentStart, RentFiniish]
+Owner [#Owner_no, OName]
+Property [#Property_No, PAddress, Rent, #Owner_No(FK), #Customer_No(FK)]
+-------------------------------------------------------------------------------------------------
+2nf: { Partial dependency = attribute(column) depend Partially on composite Primary key attribute }
+Customer [#Customer_no, CName]
+Owner    [#Owner_no, OName]
+Property [#Property_No, PAddress, Rent, #Owner_No(FK)]
+Rental   [#Customer_No(FK), #Property_No(FK), RentStart, RentFinish]
+--------------------------------------------------------------------------------------------------
+3nf: { Transitive [ Fake dependency ] :> Attribute (column) depend on a NON PK. Key Attribute }
+Customer [#Customer_no, CName]
+Owner    [#Owner_no, OName]
+Property [#Property_No, PAddress, Rent, #Owner_No(FK)]
+Rental   [#Customer_No(FK), #Property_No(FK), RentStart, RentFinish]
