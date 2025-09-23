@@ -1,0 +1,866 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\fadys> mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use iti_inistructor
+Database changed
+MariaDB [iti_inistructor]> ALTER TABLE student ADD (
+    -> gender ENUM('male','female');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [iti_inistructor]> ALTER TABLE student ADD gender ENUM('male', 'female') NOT NULL AFTER name;
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> ALTER TABLE student ADD birth_date DATE AFTER gender;
+Query OK, 0 rows affected (0.016 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE student SET gender='male'
+    -> ;
+Query OK, 0 rows affected (0.033 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT* FROM student;
++------------+------------------+--------+------------+-------------------------+------------+
+| student_id | name             | gender | birth_date | email                   | address    |
++------------+------------------+--------+------------+-------------------------+------------+
+|          1 | Abdullah Shokr   | male   | NULL       | abd.shokr@example.com   | Cairo      |
+|          2 | Abdullah Elsaeed | male   | NULL       | abd.elsaeed@example.com | Giza       |
+|          3 | Islam Ahmed      | male   | NULL       | islam.ahmed@example.com | Alexandria |
+|          4 | Ahmed Alaa       | male   | NULL       | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Bassel           | male   | NULL       | bassel@example.com      | Cairo      |
++------------+------------------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> ALTER TABLE student DELETE name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DELETE name' at line 1
+MariaDB [iti_inistructor]> ALTER TABLE student DROP name;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT* FROM student;
++------------+--------+------------+-------------------------+------------+
+| student_id | gender | birth_date | email                   | address    |
++------------+--------+------------+-------------------------+------------+
+|          1 | male   | NULL       | abd.shokr@example.com   | Cairo      |
+|          2 | male   | NULL       | abd.elsaeed@example.com | Giza       |
+|          3 | male   | NULL       | islam.ahmed@example.com | Alexandria |
+|          4 | male   | NULL       | ahmed.alaa@example.com  | Mansoura   |
+|          5 | male   | NULL       | bassel@example.com      | Cairo      |
++------------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> ALTER TABLE student ADD (first_name VARCHAR(50) NOT NULL AFTER student_id,
+    -> last_name VAARCHAR(50) NOT NULL AFTER first_name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AFTER student_id,
+last_name VAARCHAR(50) NOT NULL AFTER first_name)' at line 1
+MariaDB [iti_inistructor]> Ctrl-C -- exit!
+Bye
+PS C:\Users\fadys> ^C
+PS C:\Users\fadys> mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use iti_inistructor
+Database changed
+MariaDB [iti_inistructor]> SELECT * FROM student
+    -> ;
++------------+--------+------------+-------------------------+------------+
+| student_id | gender | birth_date | email                   | address    |
++------------+--------+------------+-------------------------+------------+
+|          1 | male   | NULL       | abd.shokr@example.com   | Cairo      |
+|          2 | male   | NULL       | abd.elsaeed@example.com | Giza       |
+|          3 | male   | NULL       | islam.ahmed@example.com | Alexandria |
+|          4 | male   | NULL       | ahmed.alaa@example.com  | Mansoura   |
+|          5 | male   | NULL       | bassel@example.com      | Cairo      |
++------------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> ALTER TABLE student ADD first_name VARCHAR(50) NOT NULL AFTER student_id,
+    -> ADD last_name VAAARCHAR(50) NOT NULL AFTER first_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(50) NOT NULL AFTER first_name' at line 2
+MariaDB [iti_inistructor]> ALTER TABLE student ADD (first_name VARCHAR(50) NOT NULL AFTER student_id,
+    ->     -> last_name VARCHAR(50) NOT NULL AFTER first_name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AFTER student_id,
+    -> last_name VARCHAR(50) NOT NULL AFTER first_name)' at line 1
+MariaDB [iti_inistructor]> ALTER TABLE student ADD (first_name VARCHAR(50) NOT NULL AFTER student_id,
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AFTER student_id,' at line 1
+MariaDB [iti_inistructor]> ALTER TABLE student ADD (first_name VARCHAR(50) NOT NULL AFTER student_id,
+    ->     -> last_name VARCHAR(50) NOT NULL AFTER first_name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AFTER student_id,
+    -> last_name VARCHAR(50) NOT NULL AFTER first_name)' at line 1
+MariaDB [iti_inistructor]> ALTER TABLE student ADD first_name VARCHAR(50) NOT NULL AFTER student_id,
+    -> ADD last_name VARCHAR(50) NOT NULL AFTER first_name;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='firstName', last_name='lastName';
+Query OK, 5 rows affected (0.006 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student
+    -> ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | firstName  | lastName  | male   | NULL       | abd.shokr@example.com   | Cairo      |
+|          2 | firstName  | lastName  | male   | NULL       | abd.elsaeed@example.com | Giza       |
+|          3 | firstName  | lastName  | male   | NULL       | islam.ahmed@example.com | Alexandria |
+|          4 | firstName  | lastName  | male   | NULL       | ahmed.alaa@example.com  | Mansoura   |
+|          5 | firstName  | lastName  | male   | NULL       | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Abdullah', last_name='Shokr'
+    -> , birth_date='01-01-2000';
+Query OK, 5 rows affected, 5 warnings (0.006 sec)
+Rows matched: 5  Changed: 5  Warnings: 5
+
+MariaDB [iti_inistructor]> rollback
+    -> ;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 0000-00-00 | abd.shokr@example.com   | Cairo      |
+|          2 | Abdullah   | Shokr     | male   | 0000-00-00 | abd.elsaeed@example.com | Giza       |
+|          3 | Abdullah   | Shokr     | male   | 0000-00-00 | islam.ahmed@example.com | Alexandria |
+|          4 | Abdullah   | Shokr     | male   | 0000-00-00 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Abdullah   | Shokr     | male   | 0000-00-00 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Abdullah', last_name='Shokr',
+    -> birth_date='2000-01-01' WHERE student_id=1
+    -> ;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Abdullah   | Shokr     | male   | 0000-00-00 | abd.elsaeed@example.com | Giza       |
+|          3 | Abdullah   | Shokr     | male   | 0000-00-00 | islam.ahmed@example.com | Alexandria |
+|          4 | Abdullah   | Shokr     | male   | 0000-00-00 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Abdullah   | Shokr     | male   | 0000-00-00 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Alaa', last_name='Amr', gender='female', birth_date='2001-02-12' WHERE student_id=2;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |
+|          3 | Abdullah   | Shokr     | male   | 0000-00-00 | islam.ahmed@example.com | Alexandria |
+|          4 | Abdullah   | Shokr     | male   | 0000-00-00 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Abdullah   | Shokr     | male   | 0000-00-00 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Islam', last_name='Ahmed', gender='male', birth_date='2001-02-18' WHERE student_id=3;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |
+|          4 | Abdullah   | Shokr     | male   | 0000-00-00 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Abdullah   | Shokr     | male   | 0000-00-00 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Ahmed', last_name='Alaa', gender='male', birth_date='2003-12-22' WHERE student_id=4;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Abdullah   | Shokr     | male   | 0000-00-00 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET first_name='Basel', last_name='Ahmed', gender='male', birth_date='2012-02-18' WHERE student_id=5;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM student ;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Basel      | Ahmed     | male   | 2012-02-18 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> BEGIN
+    -> INSER INTO student VALUES (
+    -> first_name='Amira',
+    -> last_name='Omar',
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INSER INTO student VALUES (
+first_name='Amira',
+last_name='Omar',
+)' at line 2
+MariaDB [iti_inistructor]> BEGIIN;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BEGIIN' at line 1
+MariaDB [iti_inistructor]> BEGIN;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO student (first_name, last_name, birth_date, gender, email, address)
+    -> VALUES ('Mariam', 'Omar', '2008-02-19','female','mariam@example.com', 'Mansoura');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student;
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Basel      | Ahmed     | male   | 2012-02-18 | bassel@example.com      | Cairo      |
+|          6 | Mariam     | Omar      | female | 2008-02-19 | mariam@example.com      | Mansoura   |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+6 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> DESC exam
+    -> ;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| exam_id    | int(11) | NO   | PRI | NULL    | auto_increment |
+| exam_data  | text    | YES  |     | NULL    |                |
+| subject_id | int(11) | NO   | MUL | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.015 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM exam;
+Empty set (0.000 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam (exam_data, subject_id) VALUES ('FIVE QUSTIONS', 1)
+    -> ;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam (exam_data, subject_id) VALUES ('SIX QUSTIONS', 1);
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM exam;
++---------+---------------+------------+
+| exam_id | exam_data     | subject_id |
++---------+---------------+------------+
+|       1 | FIVE QUSTIONS |          1 |
+|       2 | SIX QUSTIONS  |          1 |
++---------+---------------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam (exam_data, subject_id) VALUES ('FIVE QUSTIONS', 2);
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam (exam_data, subject_id) VALUES ('FIVE QUSTIONS', 3);
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam (exam_data, subject_id) VALUES ('FIVE QUSTIONS', 4);
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM exam;
++---------+---------------+------------+
+| exam_id | exam_data     | subject_id |
++---------+---------------+------------+
+|       1 | FIVE QUSTIONS |          1 |
+|       2 | SIX QUSTIONS  |          1 |
+|       3 | FIVE QUSTIONS |          2 |
+|       4 | FIVE QUSTIONS |          3 |
+|       5 | FIVE QUSTIONS |          4 |
++---------+---------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> DESC student_score
+    -> ;
+ERROR 1146 (42S02): Table 'iti_inistructor.student_score' doesn't exist
+MariaDB [iti_inistructor]> DESC exam_score;
++------------+------------+------+-----+---------+-------+
+| Field      | Type       | Null | Key | Default | Extra |
++------------+------------+------+-----+---------+-------+
+| exam_id    | int(11)    | NO   | PRI | NULL    |       |
+| student_id | int(11)    | NO   | PRI | NULL    |       |
+| score      | float(5,2) | YES  |     | NULL    |       |
++------------+------------+------+-----+---------+-------+
+3 rows in set (0.011 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO exam_score (exam_id, student_id, score) VALUES (1,6,20.12);
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [iti_inistructor]> comit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'comit' at line 1
+MariaDB [iti_inistructor]> COMMIT;
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [iti_inistructor]> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     sub.name AS subject_name,
+    ->     e.exam_date,
+    ->     se.score
+    -> FROM Student s
+    -> JOIN Student_Exam se ON s.student_id = se.student_id
+    -> JOIN Exam e          ON se.exam_id = e.exam_id
+    -> JOIN Subject sub     ON e.subject_id = sub.subject_id
+    -> ORDER BY s.student_id, sub.name;
+ERROR 1146 (42S02): Table 'iti_inistructor.student_exam' doesn't exist
+MariaDB [iti_inistructor]> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     sub.name AS subject_name,
+    ->     e.exam_date,
+    ->     es.score
+    -> FROM Student s
+    -> JOIN Exam_Score es ON s.student_id = es.student_id
+    -> JOIN Exam e        ON es.exam_id = e.exam_id
+    -> JOIN Subject sub   ON e.subject_id = sub.subject_id
+    -> ORDER BY s.student_id, sub.name;
+ERROR 1054 (42S22): Unknown column 'e.exam_date' in 'field list'
+MariaDB [iti_inistructor]> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     sub.name AS subject_name,
+    ->     e.exam_data,
+    ->     es.score
+    -> FROM Student s
+    -> JOIN Exam_Score es ON s.student_id = es.student_id
+    -> JOIN Exam e        ON es.exam_id = e.exam_id
+    -> JOIN Subject sub   ON e.subject_id = sub.subject_id
+    -> ORDER BY s.student_id, sub.name;
++------------+--------------+--------------+---------------+-------+
+| student_id | student_name | subject_name | exam_data     | score |
++------------+--------------+--------------+---------------+-------+
+|          6 | Mariam Omar  | C            | FIVE QUSTIONS | 20.12 |
++------------+--------------+--------------+---------------+-------+
+1 row in set (0.015 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student WHERE gender='male';
++------------+------------+-----------+--------+------------+-------------------------+------------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |
+|          5 | Basel      | Ahmed     | male   | 2012-02-18 | bassel@example.com      | Cairo      |
++------------+------------+-----------+--------+------------+-------------------------+------------+
+4 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT SUM(*) FROM student WHERE gender='female';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '*) FROM student WHERE gender='female'' at line 1
+MariaDB [iti_inistructor]> SELECT COUNT(*) FROM student WHERE gender='female';
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student WHERE str_to_date(birth_date)<'1991-10-01';
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'str_to_date'
+MariaDB [iti_inistructor]> SELECT * FROM student WHERE gender='male' AND birth_date<'1991-10-01';
+Empty set (0.001 sec)
+
+MariaDB [iti_inistructor]> /* sorry all genz */
+MariaDB [iti_inistructor]> SELECT * FROM subject SORT BY max_score DESC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BY max_score DESC' at line 1
+MariaDB [iti_inistructor]> SELECT * FROM subject ORDER BY max_score DESC;
++------------+------+---------------------------------+-----------+
+| subject_id | name | description                     | max_score |
++------------+------+---------------------------------+-----------+
+|          1 | C    | Intro to C programming language |       100 |
+|          2 | CPP  | C++ object-oriented programming |       100 |
+|          3 | HTML | Web markup fundamentals         |       100 |
+|          4 | JS   | JavaScript programming          |       100 |
++------------+------+---------------------------------+-----------+
+4 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> UPDATE subject SET max_score=150 WHERE subject_id=1;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE subject SET max_score=200 WHERE subject_id=2;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE subject SET max_score=250 WHERE subject_id=3;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE subject SET max_score=300 WHERE subject_id=4;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM subject ORDER BY max_score DESC;
++------------+------+---------------------------------+-----------+
+| subject_id | name | description                     | max_score |
++------------+------+---------------------------------+-----------+
+|          4 | JS   | JavaScript programming          |       300 |
+|          3 | HTML | Web markup fundamentals         |       250 |
+|          2 | CPP  | C++ object-oriented programming |       200 |
+|          1 | C    | Intro to C programming language |       150 |
++------------+------+---------------------------------+-----------+
+4 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT name, decscription, MAX(max_score) FROM subject GROUP BY max_score;
+ERROR 1054 (42S22): Unknown column 'decscription' in 'field list'
+MariaDB [iti_inistructor]> SELECT name, description, MAX(max_score) FROM subject GROUP BY max_score;
++------+---------------------------------+----------------+
+| name | description                     | MAX(max_score) |
++------+---------------------------------+----------------+
+| C    | Intro to C programming language |            150 |
+| CPP  | C++ object-oriented programming |            200 |
+| HTML | Web markup fundamentals         |            250 |
+| JS   | JavaScript programming          |            300 |
++------+---------------------------------+----------------+
+4 rows in set (0.013 sec)
+
+MariaDB [iti_inistructor]> SELECT name, description, MAX(max_score) FROM subject GROUP BY max_score LIMIT 1;
++------+---------------------------------+----------------+
+| name | description                     | MAX(max_score) |
++------+---------------------------------+----------------+
+| C    | Intro to C programming language |            150 |
++------+---------------------------------+----------------+
+1 row in set (0.013 sec)
+
+MariaDB [iti_inistructor]> SELECT name, description, MAX(max_score) FROM subject GROUP BY max_score ORDER BY max_score DESC LIMIT 1;
++------+------------------------+----------------+
+| name | description            | MAX(max_score) |
++------+------------------------+----------------+
+| JS   | JavaScript programming |            300 |
++------+------------------------+----------------+
+1 row in set (0.011 sec)
+
+MariaDB [iti_inistructor]> SELECT name FROM student WHERE name LIKE('A%');
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [iti_inistructor]> DESC student
+    -> ;
++------------+-----------------------+------+-----+---------+----------------+
+| Field      | Type                  | Null | Key | Default | Extra          |
++------------+-----------------------+------+-----+---------+----------------+
+| student_id | int(11)               | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)           | NO   |     | NULL    |                |
+| last_name  | varchar(50)           | NO   |     | NULL    |                |
+| gender     | enum('male','female') | NO   |     | NULL    |                |
+| birth_date | date                  | YES  |     | NULL    |                |
+| email      | varchar(100)          | YES  |     | NULL    |                |
+| address    | varchar(200)          | YES  |     | NULL    |                |
++------------+-----------------------+------+-----+---------+----------------+
+7 rows in set (0.014 sec)
+
+MariaDB [iti_inistructor]> SELECT CONCAT(first_name,last_name)  as fullName FROM student WHERE first_name LIKE('A%');
++---------------+
+| fullName      |
++---------------+
+| AbdullahShokr |
+| AlaaAmr       |
+| AhmedAlaa     |
++---------------+
+3 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT COUNT(*) FROM student WHERE first_name='Mohamed' OR last_name='Mohamed';
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> ٍُSELECT  gender COUNT (*) FROM student GROUP BY gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(*) FROM student GROUP BY gender' at line 1
+MariaDB [iti_inistructor]> SELECT  gender FROM student GROUP BY gender;
++--------+
+| gender |
++--------+
+| male   |
+| female |
++--------+
+2 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT  * FROM student GROUP BY gender;
++------------+------------+-----------+--------+------------+-------------------------+---------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address |
++------------+------------+-----------+--------+------------+-------------------------+---------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo   |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza    |
++------------+------------+-----------+--------+------------+-------------------------+---------+
+2 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT CONCAT(first_name, last_name) as fullName, gender, birth_date, email FROM student GROUP BY gender
+    -> ;
++---------------+--------+------------+-------------------------+
+| fullName      | gender | birth_date | email                   |
++---------------+--------+------------+-------------------------+
+| AbdullahShokr | male   | 2000-01-01 | abd.shokr@example.com   |
+| AlaaAmr       | female | 2001-02-12 | abd.elsaeed@example.com |
++---------------+--------+------------+-------------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]> SELECT CONCAT(first_name, last_name) as fullName, gender, birth_date, email FROM student;
++---------------+--------+------------+-------------------------+
+| fullName      | gender | birth_date | email                   |
++---------------+--------+------------+-------------------------+
+| AbdullahShokr | male   | 2000-01-01 | abd.shokr@example.com   |
+| AlaaAmr       | female | 2001-02-12 | abd.elsaeed@example.com |
+| IslamAhmed    | male   | 2001-02-18 | islam.ahmed@example.com |
+| AhmedAlaa     | male   | 2003-12-22 | ahmed.alaa@example.com  |
+| BaselAhmed    | male   | 2012-02-18 | bassel@example.com      |
+| MariamOmar    | female | 2008-02-19 | mariam@example.com      |
++---------------+--------+------------+-------------------------+
+6 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT CONCAT(first_name, last_name) as fullName, COUNT(gender), birth_date, email FROM student;
++---------------+---------------+------------+-----------------------+
+| fullName      | COUNT(gender) | birth_date | email                 |
++---------------+---------------+------------+-----------------------+
+| AbdullahShokr |             6 | 2000-01-01 | abd.shokr@example.com |
++---------------+---------------+------------+-----------------------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT  gender COUNT(*) FROM student GROUP BY gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'COUNT(*) FROM student GROUP BY gender' at line 1
+MariaDB [iti_inistructor]> SELECT gender, COUNT(*) FROM student GROUP BY gender;
++--------+----------+
+| gender | COUNT(*) |
++--------+----------+
+| male   |        4 |
+| female |        2 |
++--------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT first_name COUNT(*) FROM student GROUP BY first_name HAVING COUNT(*) > 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'COUNT(*) FROM student GROUP BY first_name HAVING COUNT(*) > 2' at line 1
+MariaDB [iti_inistructor]> SELECT first_name, COUNT(*) FROM student GROUP BY first_name HAVING COUNT(*) > 2;
+Empty set (0.000 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE track (
+    -> track_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> track_name VARCHAR(50));
+Query OK, 0 rows affected (0.026 sec)
+
+MariaDB [iti_inistructor]> ALTER TABLE student ADD track_id INT NOT NULL;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> ALTER TABLE student ADD FOREIGN KEY (track_id) REFERENCES track(track_id) ON DELETE CASCADE;
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`iti_inistructor`.`#sql-3498_9`, CONSTRAINT `#sql-3498_9_ibfk_1` FOREIGN KEY (`track_id`) REFERENCES `track` (`track_id`) ON DELETE CASCADE)
+MariaDB [iti_inistructor]>  SELECT name, description, MAX(max_score) FROM subject GROUP BY max_score HAVING max_score=MAX(max_score) ORDER BY max_score DESC;
++------+---------------------------------+----------------+
+| name | description                     | MAX(max_score) |
++------+---------------------------------+----------------+
+| JS   | JavaScript programming          |            300 |
+| HTML | Web markup fundamentals         |            250 |
+| CPP  | C++ object-oriented programming |            200 |
+| C    | Intro to C programming language |            150 |
++------+---------------------------------+----------------+
+4 rows in set (0.013 sec)
+
+MariaDB [iti_inistructor]>  SELECT name, description, max_score FROM subject GROUP BY max_score HAVING max_score=MAX(max_score) ORDER BY max_score DESC ;
++------+---------------------------------+-----------+
+| name | description                     | max_score |
++------+---------------------------------+-----------+
+| JS   | JavaScript programming          |       300 |
+| HTML | Web markup fundamentals         |       250 |
+| CPP  | C++ object-oriented programming |       200 |
+| C    | Intro to C programming language |       150 |
++------+---------------------------------+-----------+
+4 rows in set (0.014 sec)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MariaDB [iti_inistructor]> SELECT name, description, max_score
+    -> FROM subject
+    -> WHERE max_score = (SELECT MAX(max_score) FROM subject);
++------+------------------------+-----------+
+| name | description            | max_score |
++------+------------------------+-----------+
+| JS   | JavaScript programming |       300 |
++------+------------------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [iti_inistructor]> /* Question 12 */
+MariaDB [iti_inistructor]> INSERT INTO track(track_name) VALUES('php');
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO track(track_name) VALUES('DotNet');
+Query OK, 1 row affected (0.295 sec)
+
+MariaDB [iti_inistructor]> UPDATE student SET track_id=1 WHERE student_id BETWEEN 1 AND 3;
+Query OK, 3 rows affected (0.006 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE student SET track_id=2 WHERE student_id BETWEEN 4 AND 6;
+Query OK, 3 rows affected (0.097 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [iti_inistructor]> ALTER TABLE Student
+    -> ADD CONSTRAINT fk_track FOREIGN KEY (track_id) REFERENCES Track(track_id);
+Query OK, 6 rows affected (0.118 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+
+MariaDB [iti_inistructor]> CREATE VIEW student_track_name AS
+    -> SELECT CONCAT(s.first_name,' ',s.last_name) as fullname
+    -> FROM student as s JOIN track as t
+    -> ON s.track_id=t.track_id;
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [iti_inistructor]> DESC student_track_name
+    -> ;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| fullname | varchar(101) | NO   |     |         |       |
++----------+--------------+------+-----+---------+-------+
+1 row in set (0.013 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student_track_name;
++----------------+
+| fullname       |
++----------------+
+| Abdullah Shokr |
+| Alaa Amr       |
+| Islam Ahmed    |
+| Ahmed Alaa     |
+| Basel Ahmed    |
+| Mariam Omar    |
++----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM track
+    -> ;
++----------+------------+
+| track_id | track_name |
++----------+------------+
+|        1 | php        |
+|        2 | DotNet     |
++----------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> CREATE VIEW student_tracks AS
+    -> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     t.track_name
+    -> FROM Student s
+    -> JOIN Track t ON s.track_id = t.track_id;
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [iti_inistructor]> SELECT* FROM student_tracks;
++------------+----------------+------------+
+| student_id | student_name   | track_name |
++------------+----------------+------------+
+|          1 | Abdullah Shokr | php        |
+|          2 | Alaa Amr       | php        |
+|          3 | Islam Ahmed    | php        |
+|          4 | Ahmed Alaa     | DotNet     |
+|          5 | Basel Ahmed    | DotNet     |
+|          6 | Mariam Omar    | DotNet     |
++------------+----------------+------------+
+6 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]> /* 17 */
+
+MariaDB [iti_inistructor]> DESC subject
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| subject_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(50) | YES  |     | NULL    |                |
+| description | text        | YES  |     | NULL    |                |
+| max_score   | int(11)     | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.014 sec)
+
+MariaDB [iti_inistructor]> ALTER TABLE subject ADD track_id INT;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE subject SET track_id=1 Where subject_id BETWEEN 1 AND 3;
+Query OK, 3 rows affected (0.006 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM subject;
++------------+------+---------------------------------+-----------+----------+
+| subject_id | name | description                     | max_score | track_id |
++------------+------+---------------------------------+-----------+----------+
+|          1 | C    | Intro to C programming language |       150 |        1 |
+|          2 | CPP  | C++ object-oriented programming |       200 |        1 |
+|          3 | HTML | Web markup fundamentals         |       250 |        1 |
+|          4 | JS   | JavaScript programming          |       300 |     NULL |
++------------+------+---------------------------------+-----------+----------+
+4 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]> UPDATE subject SET track_id=2 Where subject_id =4;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]> ALTER TABLE subject ADD CONSTRAINT fk_track_subject FOREIGN KEY (track_id) REFERENCES track (track_id);
+Query OK, 4 rows affected (0.106 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> CREATE VIEW track_subjects AS
+    -> SELECT s.name, s.description , t.track_name
+    -> FROM subject as s JOIN track as t
+    -> ON s.track_id=t.track_id;
+Query OK, 0 rows affected (0.007 sec)
+
+
+MariaDB [iti_inistructor]> SELECT * FROM track_subjects;
++------+---------------------------------+------------+
+| name | description                     | track_name |
++------+---------------------------------+------------+
+| C    | Intro to C programming language | php        |
+| CPP  | C++ object-oriented programming | php        |
+| HTML | Web markup fundamentals         | php        |
+| JS   | JavaScript programming          | DotNet     |
++------+---------------------------------+------------+
+4 rows in set (0.001 sec)
+/* 18 */
+
+MariaDB [iti_inistructor]> CREATE VIEW student_subjects AS
+    -> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     sub.name AS subject_name
+    -> FROM Student s
+    -> JOIN Student_Subject ss ON s.student_id = ss.student_id
+    -> JOIN Subject sub ON ss.subject_id = sub.subject_id;
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM student_subjects;
++------------+----------------+--------------+
+| student_id | student_name   | subject_name |
++------------+----------------+--------------+
+|          2 | Alaa Amr       | C            |
+|          4 | Ahmed Alaa     | C            |
+|          2 | Alaa Amr       | CPP          |
+|          4 | Ahmed Alaa     | CPP          |
+|          1 | Abdullah Shokr | HTML         |
+|          3 | Islam Ahmed    | HTML         |
+|          5 | Basel Ahmed    | HTML         |
+|          1 | Abdullah Shokr | JS           |
+|          3 | Islam Ahmed    | JS           |
+|          5 | Basel Ahmed    | JS           |
++------------+----------------+--------------+
+10 rows in set (0.002 sec)
+/* 19 */
+
+MariaDB [iti_inistructor]> CREATE VIEW students_name_scores AS
+    -> SELECT
+    ->     s.student_id,
+    ->     CONCAT(s.first_name, ' ', s.last_name) AS student_name,
+    ->     sub.name AS subject_name,
+    ->     ex.score
+    -> FROM student AS s
+    -> JOIN exam_score AS ex ON s.student_id = ex.student_id
+    -> JOIN exam AS e ON e.exam_id = ex.exam_id
+    -> JOIN subject AS sub ON sub.subject_id = e.subject_id;
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM students_name_scores
+    -> ;
++------------+--------------+--------------+-------+
+| student_id | student_name | subject_name | score |
++------------+--------------+--------------+-------+
+|          6 | Mariam Omar  | C            | 20.12 |
++------------+--------------+--------------+-------+
+1 row in set (0.003 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM exam_score
+    -> ;
++---------+------------+-------+
+| exam_id | student_id | score |
++---------+------------+-------+
+|       1 |          6 | 20.12 |
++---------+------------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> /*20*/
+
+MariaDB [iti_inistructor]> CREATE TEMPORARY TABLE max_subjects AS
+    -> SELECT subject_id, name AS subject_name, max_score
+    -> FROM subject;
+Query OK, 4 rows affected (0.007 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT * FROM max_subject
+    -> ;
+ERROR 1146 (42S02): Table 'iti_inistructor.max_subject' doesn't exist
+MariaDB [iti_inistructor]> SELECT * FROM max_subjects;
++------------+--------------+-----------+
+| subject_id | subject_name | max_score |
++------------+--------------+-----------+
+|          1 | C            |       150 |
+|          2 | CPP          |       200 |
+|          3 | HTML         |       250 |
+|          4 | JS           |       300 |
++------------+--------------+-----------+
+4 rows in set (0.001 sec)
+
+/* 21 */
+MariaDB [iti_inistructor]> DELETE FROM student
+    -> WHERE student_id IN (
+    ->     SELECT student_id
+    ->     FROM students_name_scores
+    ->     WHERE score < 50
+    ->
+    -> );
+Query OK, 1 row affected (0.023 sec)
+
+MariaDB [iti_inistructor]> /* 22 */
+MariaDB [iti_inistructor]> SELECT * FROM student
+    -> ;
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    | track_id |
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |        1 |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |        1 |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |        1 |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |        2 |
+|          5 | Basel      | Ahmed     | male   | 2012-02-18 | bassel@example.com      | Cairo      |        2 |
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+5 rows in set (0.001 sec)
+/* 22 */

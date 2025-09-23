@@ -1,0 +1,203 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\fadys\Desktop> mysql -v
+ERROR 1045 (28000): Access denied for user 'fadys'@'localhost' (using password: NO)
+PS C:\Users\fadys\Desktop> mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| blog               |
+| information_schema |
+| iti_db2            |
+| mysql              |
+| performance_schema |
+| phpiggy            |
+| phpmyadmin         |
+| tasksdb            |
+| test               |
++--------------------+
+9 rows in set (0.034 sec)
+
+MariaDB [(none)]> CREATE DATABASE iti_inistructor
+    -> ;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use iti_inistructor
+Database changed
+MariaDB [iti_inistructor]> CREATE TABLE student(
+    -> student_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50),
+    -> email VARCHAR(100),
+    -> address VARCHAR(200));
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [iti_inistructor]> SHOW TABLES
+    -> ;
++---------------------------+
+| Tables_in_iti_inistructor |
++---------------------------+
+| student                   |
++---------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [iti_inistructor]> DESC student
+    -> ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| student_id | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(50)  | YES  |     | NULL    |                |
+| email      | varchar(100) | YES  |     | NULL    |                |
+| address    | varchar(200) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.014 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE student_phones(
+    -> phone_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> student_id INT NOT NULL,
+    -> phone_number VARCHAR(20) NOT NULL,
+    -> FOREIGN KEY (student_id) REFERENCES student(student_id) ON DELETE CASCADE);
+Query OK, 0 rows affected (0.042 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE subject(
+    -> subject_id INT AUTO INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50),
+    -> description TEXT,
+    -> max_score INT NOT NULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AUTO INCREMENT PRIMARY KEY,
+name VARCHAR(50),
+description TEXT,
+max_score INT...' at line 2
+MariaDB [iti_inistructor]> CREATE TABLE subject(
+    -> subject_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50),
+    -> description TEXT,
+    -> max_score INT NOT NULL);
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE student_subject(
+    -> student_id INT NOT NULL
+    -> , subject_id INT NOT NULL,
+    -> PRIMARY KEY(student_id,subject_id),
+    -> FOREIGN KEY student_id REFERENCES student(student_id) ON DELETE CASCADE,
+    -> FOREIGN KEY subject_id REFERENCES subject(subject_id) ON DELETE CASCADE,);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'REFERENCES student(student_id) ON DELETE CASCADE,
+FOREIGN KEY subject_id REFE...' at line 5
+MariaDB [iti_inistructor]> CREATE TABLE Student_Subject (
+    ->     student_id INT NOT NULL,
+    ->     subject_id INT NOT NULL,
+    ->     PRIMARY KEY (student_id, subject_id),  -- composite PK
+    ->     FOREIGN KEY (student_id) REFERENCES Student(student_id)
+    ->         ON DELETE CASCADE,
+    ->     FOREIGN KEY (subject_id) REFERENCES Subject(subject_id)
+    ->         ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.039 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE exam (
+    -> exam_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> exam_data TEXT,
+    -> subject_id INT NOT NULL,
+    -> FOREIGN KEY (subject_id) REFERENCES subject(subject_id)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.048 sec)
+
+MariaDB [iti_inistructor]> CREATE TABLE exam_score(
+    -> exam_id INT NOT NULL,
+    -> student_id INT NOT NULL ,
+    -> score FLOAT(5,2),
+    -> PRIMARY KEY (exam_id,student_id),
+    -> FOREIGN KEY (exam_id) REFERENCES exam(exam_id)
+    -> ON DELETE CASCADE,
+    -> FOREIGN KEY (student_id) REFERENCES student(student_id)
+    -> ON DELETE CASCADE);
+Query OK, 0 rows affected (0.040 sec)
+
+MariaDB [iti_inistructor]> SHOW TABLES
+    -> ;
++---------------------------+
+| Tables_in_iti_inistructor |
++---------------------------+
+| exam                      |
+| exam_score                |
+| student                   |
+| student_phones            |
+| student_subject           |
+| subject                   |
++---------------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO Subject (name, description, max_score) VALUES
+    -> ('C', 'Intro to C programming language', 100),
+    -> ('CPP', 'C++ object-oriented programming', 100),
+    -> ('HTML', 'Web markup fundamentals', 100),
+    -> ('JS', 'JavaScript programming', 100);
+Query OK, 4 rows affected (0.034 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student (name, email, address) VALUES
+    -> ('Abdullah Shokr', 'abd.shokr@example.com', 'Cairo'),
+    -> ('Abdullah Elsaeed', 'abd.elsaeed@example.com', 'Giza'),
+    -> ('Islam Ahmed', 'islam.ahmed@example.com', 'Alexandria'),
+    -> ('Ahmed Alaa', 'ahmed.alaa@example.com', 'Mansoura'),
+    -> ('Bassel', 'bassel@example.com', 'Cairo');
+Query OK, 5 rows affected (0.006 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student_Subject (student_id, subject_id) VALUES (1, 3), (1, 4);
+Query OK, 2 rows affected (0.299 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student_Subject (student_id, subject_id) VALUES (2, 1), (2, 2);
+Query OK, 2 rows affected (0.006 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student_Subject (student_id, subject_id) VALUES (3, 3), (3, 4);
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student_Subject (student_id, subject_id) VALUES (4, 1), (4, 2);
+Query OK, 2 rows affected (0.028 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> INSERT INTO Student_Subject (student_id, subject_id) VALUES (5, 3), (5, 4);
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT s.name AS student, sub.name AS subject
+    -> FROM Student_Subject ss
+    -> JOIN Student s ON ss.student_id = s.student_id
+    -> JOIN Subject sub ON ss.subject_id = sub.subject_id
+    -> ORDER BY s.student_id;
++------------------+---------+
+| student          | subject |
++------------------+---------+
+| Abdullah Shokr   | JS      |
+| Abdullah Shokr   | HTML    |
+| Abdullah Elsaeed | C       |
+| Abdullah Elsaeed | CPP     |
+| Islam Ahmed      | JS      |
+| Islam Ahmed      | HTML    |
+| Ahmed Alaa       | CPP     |
+| Ahmed Alaa       | C       |
+| Bassel           | JS      |
+| Bassel           | HTML    |
++------------------+---------+
+10 rows in set (0.001 sec)
+
+MariaDB [iti_inistructor]>

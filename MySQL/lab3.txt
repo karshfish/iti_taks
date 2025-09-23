@@ -1,0 +1,386 @@
+MariaDB [iti_inistructor]> ALTER TABLE exam ADD exam_date DATE;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [iti_inistructor]> UPDATE exam SET exam_date='2025-11-25';
+Query OK, 5 rows affected (0.035 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+MariaDB [iti_inistructor]> SELECT DATE_FORMAT(exam_date, '%d %M %Y') FROM exam;
++------------------------------------+
+| DATE_FORMAT(exam_date, '%d %M %Y') |
++------------------------------------+
+| 25 November 2025                   |
+| 25 November 2025                   |
+| 25 November 2025                   |
+| 25 November 2025                   |
+| 25 November 2025                   |
++------------------------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> /*1 */
+MariaDB [iti_inistructor]> SELECT CONCAT(first_name, ' ' ,last_name), YEAR(birth_date) FROM student;
++------------------------------------+------------------+
+| CONCAT(first_name, ' ' ,last_name) | YEAR(birth_date) |
++------------------------------------+------------------+
+| Abdullah Shokr                     |             2000 |
+| Alaa Amr                           |             2001 |
+| Islam Ahmed                        |             2001 |
+| Ahmed Alaa                         |             2003 |
+| Basel Ahmed                        |             2012 |
++------------------------------------+------------------+
+5 rows in set (0.002 sec)
+
+MariaDB [iti_inistructor]> /* 2 */
+
+
+MariaDB [iti_inistructor]> INSERT INTO exam( exam_data, exam_date,subject_id) VALUES ('seven questions', NOW(),1);
+Query OK, 1 row affected, 1 warning (0.005 sec)
+
+MariaDB [iti_inistructor]> SELECT * FROM exam;
++---------+-----------------+------------+------------+
+| exam_id | exam_data       | subject_id | exam_date  |
++---------+-----------------+------------+------------+
+|       1 | FIVE QUSTIONS   |          1 | 2025-11-25 |
+|       2 | SIX QUSTIONS    |          1 | 2025-11-25 |
+|       3 | FIVE QUSTIONS   |          2 | 2025-11-25 |
+|       4 | FIVE QUSTIONS   |          3 | 2025-11-25 |
+|       5 | FIVE QUSTIONS   |          4 | 2025-11-25 |
+|       7 | seven questions |          1 | 2025-09-03 |
++---------+-----------------+------------+------------+
+6 rows in set (0.000 sec)
+
+MariaDB [iti_inistructor]> /* 3 */
+
+
+
+
+MariaDB [iti_inistructor]> DELIMITER $$
+MariaDB [iti_inistructor]> CREATE FUNCTION hello(username VARCHAR(50))
+    -> RETURNS VARCHAR(100)
+    -> DETERMINISTIC
+    -> BEGIN
+    -> RETURN CONCAT('WELCOME', username);
+    -> END $$
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [iti_inistructor]> DELIMITER ;
+MariaDB [iti_inistructor]> SELECT hello('Fady');
++---------------+
+| hello('Fady') |
++---------------+
+| WELCOMEFady   |
++---------------+
+1 row in set (0.000 sec)
+/* 4 */
+
+
+
+
+
+MariaDB [iti_inistructor]> CREATE FUNCTION multi(NUM1 INT, NUM2 INT)
+    -> RETURNS BIGINT
+    -> DETERMINISTIC
+    -> BEGIN
+    -> RETURN NUM1* NUM2;
+    -> END$$
+Query OK, 0 rows affected (0.015 sec)
+
+MariaDB [iti_inistructor]> SELECT multi(20,30)$$
++--------------+
+| multi(20,30) |
++--------------+
+|          600 |
++--------------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> /* 5 */
+
+
+
+
+DETERMINISTIC
+BEGIN
+DECLARE result VARCHAR(10);
+IF ( MOD(...' at line 2
+MariaDB [iti_inistructor]> CREATE FUNCTION odd_or_even(n INT)
+    -> RETURNS VARCHAR(10)
+    -> DETERMINISTIC
+    -> BEGIN
+    ->     DECLARE result VARCHAR(10);
+    ->
+    ->     IF MOD(n, 2) = 0 THEN
+    ->         SET result = 'Even';
+    ->     ELSE
+    ->         SET result = 'Odd';
+    ->     END IF;
+    ->
+    ->     RETURN result;
+    -> END $$
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [iti_inistructor]> SELECT odd_or_even(90)$$
++-----------------+
+| odd_or_even(90) |
++-----------------+
+| Even            |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> SELECT odd_or_even(91)$$
++-----------------+
+| odd_or_even(91) |
++-----------------+
+| Odd             |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]> /* 6 */
+
+
+
+
+MariaDB [iti_inistructor]> DESC student
+    -> $$
++------------+-----------------------+------+-----+---------+----------------+
+| Field      | Type                  | Null | Key | Default | Extra          |
++------------+-----------------------+------+-----+---------+----------------+
+| student_id | int(11)               | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)           | NO   |     | NULL    |                |
+| last_name  | varchar(50)           | NO   |     | NULL    |                |
+| gender     | enum('male','female') | NO   |     | NULL    |                |
+| birth_date | date                  | YES  |     | NULL    |                |
+| email      | varchar(100)          | YES  |     | NULL    |                |
+| address    | varchar(200)          | YES  |     | NULL    |                |
+| track_id   | int(11)               | NO   | MUL | NULL    |                |
++------------+-----------------------+------+-----+---------+----------------+
+8 rows in set (0.014 sec)
+
+
+MariaDB [iti_inistructor]> CREATE FUNCTION AddNewStudent(
+    ->     fName VARCHAR(50),
+    ->     lName VARCHAR(50),
+    ->     bDate DATE,
+    ->     tName VARCHAR(50)
+    -> ) RETURNS VARCHAR(100)
+    -> DETERMINISTIC
+    -> BEGIN
+    ->     DECLARE tId INT;
+    ->
+    ->     -- Get track_id from track table
+    ->     SELECT track_id INTO tId
+    ->     FROM track
+    ->     WHERE track_name = tName
+    ->     LIMIT 1;
+    ->
+    ->     -- Insert new student
+    ->     INSERT INTO student(first_name, last_name, birth_date, track_id)
+    ->     VALUES (fName, lName, bDate, tId);
+    ->
+    ->     RETURN CONCAT('Student ', fName, ' ', lName, ' added successfully!');
+    -> END $$
+Query OK, 0 rows affected (0.018 sec)
+
+
+MariaDB [iti_inistructor]> SELECT AddNewStudent('Fady', 'Samir', '2000-05-12', 'php')$$
++-----------------------------------------------------+
+| AddNewStudent('Fady', 'Samir', '2000-05-12', 'php') |
++-----------------------------------------------------+
+| Student Fady Samir added successfully!              |
++-----------------------------------------------------+
+1 row in set (0.006 sec)
+
+MariaDB [iti_inistructor]> /* 7 */
+
+
+
+MariaDB [iti_inistructor]> CREATE FUNCTION GetStudentInfo(stuId INT)
+    -> RETURNS VARCHAR(255)
+    -> DETERMINISTIC
+    -> BEGIN
+    ->     DECLARE fName VARCHAR(50);
+    ->     DECLARE lName VARCHAR(50);
+    ->     DECLARE tName VARCHAR(100);
+    ->     DECLARE result VARCHAR(255);
+    ->
+    ->     -- Fetch student info
+    ->     SELECT s.first_name, s.last_name, t.track_name
+    ->     INTO fName, lName, tName
+    ->     FROM student s
+    ->     JOIN track t ON s.track_id = t.track_id
+    ->     WHERE s.student_id = stuId
+    ->     LIMIT 1;
+    ->
+    ->     -- Build return string
+    ->     SET result = CONCAT('Student: ', fName, ' ', lName, ', Track: ', tName);
+    ->
+    ->     RETURN result;
+    -> END $$
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [iti_inistructor]> SELECT GetStudentInfo(1);
+    -> $$
++-------------------------------------+
+| GetStudentInfo(1)                   |
++-------------------------------------+
+| Student: Abdullah Shokr, Track: php |
++-------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [iti_inistructor]> /* 8 */
+
+
+
+
+MariaDB [iti_inistructor]> CREATE FUNCTION GetStudentScore(stuId INT, subId INT)
+    -> RETURNS INT
+    -> DETERMINISTIC
+    -> BEGIN
+    ->     DECLARE stuScore INT;
+    ->
+    ->     SELECT es.score
+    ->     INTO stuScore
+    ->     FROM exam_score es
+    ->     JOIN exam e ON es.exam_id = e.exam_id
+    ->     WHERE es.student_id = stuId
+    ->       AND e.subject_id = subId
+    ->     LIMIT 1;
+    ->
+    ->     RETURN stuScore;
+    -> END $$
+Query OK, 0 rows affected (0.017 sec)
+
+MariaDB [iti_inistructor]> SELECT GetStudentScore(1, 2)$$
++-----------------------+
+| GetStudentScore(1, 2) |
++-----------------------+
+|                  NULL |
++-----------------------+
+1 row in set (0.002 sec)
+
+
+
+MariaDB [iti_inistructor]> /* 9 */
+
+
+
+MariaDB [iti_inistructor]> SOURCE /Users/fadys/sqlFiles/testImport.sql$$
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+| student_id | first_name | last_name | gender | birth_date | email                   | address    | track_id |
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+|          1 | Abdullah   | Shokr     | male   | 2000-01-01 | abd.shokr@example.com   | Cairo      |        1 |
+|          2 | Alaa       | Amr       | female | 2001-02-12 | abd.elsaeed@example.com | Giza       |        1 |
+|          3 | Islam      | Ahmed     | male   | 2001-02-18 | islam.ahmed@example.com | Alexandria |        1 |
+|          4 | Ahmed      | Alaa      | male   | 2003-12-22 | ahmed.alaa@example.com  | Mansoura   |        2 |
+|          5 | Basel      | Ahmed     | male   | 2012-02-18 | bassel@example.com      | Cairo      |        2 |
+|          7 | Fady       | Samir     | male   | 2000-05-12 | NULL                    | NULL       |        1 |
++------------+------------+-----------+--------+------------+-------------------------+------------+----------+
+6 rows in set (0.000 sec)
+MariaDB [iti_inistructor]> exit
+Bye
+PS C:\Users\fadys\Desktop> cd ../sqlFiles
+PS C:\Users\fadys\sqlFiles> cat .\testImport.sql
+SELECT * FROM student;
+/* 10 */
+
+
+
+
+MariaDB [iti_inistructor]> CREATE TABLE Archive_Students LIKE student;
+Query OK, 0 rows affected (0.036 sec)
+
+MariaDB [iti_inistructor]> DESC Archive_Students;
++------------+-----------------------+------+-----+---------+----------------+
+| Field      | Type                  | Null | Key | Default | Extra          |
++------------+-----------------------+------+-----+---------+----------------+
+| student_id | int(11)               | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)           | NO   |     | NULL    |                |
+| last_name  | varchar(50)           | NO   |     | NULL    |                |
+| gender     | enum('male','female') | NO   |     | NULL    |                |
+| birth_date | date                  | YES  |     | NULL    |                |
+| email      | varchar(100)          | YES  |     | NULL    |                |
+| address    | varchar(200)          | YES  |     | NULL    |                |
+| track_id   | int(11)               | NO   | MUL | NULL    |                |
++------------+-----------------------+------+-----+---------+----------------+
+8 rows in set (0.011 sec)
+
+MariaDB [iti_inistructor]> /* 11 */
+
+
+
+
+
+MariaDB [iti_inistructor]> CREATE TABLE Deleted_Students LIKE student;
+Query OK, 0 rows affected (0.042 sec)
+
+MariaDB [iti_inistructor]> DELIMITER $$
+MariaDB [iti_inistructor]>
+MariaDB [iti_inistructor]> CREATE TRIGGER after_student_delete
+    -> AFTER DELETE ON student
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO Deleted_Students (student_id, first_name, last_name, gender, birth_date, track_id)
+    ->     VALUES (OLD.student_id, OLD.first_name, OLD.last_name, OLD.gender, OLD.birth_date, OLD.track_id);
+    -> END $$
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [iti_inistructor]>
+MariaDB [iti_inistructor]> DELIMITER ;
+MariaDB [iti_inistructor]> /* 12 */
+
+
+
+MariaDB [iti_inistructor]> CREATE TABLE Backup_Students LIKE student;
+Query OK, 0 rows affected (0.044 sec)
+
+MariaDB [iti_inistructor]> DELIMITER $$
+MariaDB [iti_inistructor]>
+MariaDB [iti_inistructor]> CREATE TRIGGER after_student_insert
+    -> AFTER INSERT ON student
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO Backup_Students (student_id, first_name, last_name, gender, birth_date, track_id)
+    ->     VALUES (NEW.student_id, NEW.first_name, NEW.last_name, NEW.gender, NEW.birth_date, NEW.track_id);
+    -> END $$
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [iti_inistructor]>
+MariaDB [iti_inistructor]> DELIMITER ;
+MariaDB [iti_inistructor]> /* 13 */
+
+
+
+MariaDB [iti_inistructor]> CREATE TABLE Logs (
+    ->     log_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     log_time DATETIME NOT NULL,
+    ->     description VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.025 sec)
+MariaDB [iti_inistructor]> CREATE TRIGGER trg_tracks_update
+    -> AFTER UPDATE ON Track
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO Logs (log_time, description)
+    ->     VALUES (NOW(), CONCAT('Track with ID=', OLD.track_id, ' was updated.'));
+    -> END$$
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [iti_inistructor]> INSERT INTO track (track_id, track_name)
+    -> VALUES (4, 'GO');
+Query OK, 1 row affected (0.005 sec)
+MariaDB [iti_inistructor]> UPDATE track
+    -> SET track_name = 'GO LANG'
+    -> WHERE track_id = 4;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [iti_inistructor]>
+MariaDB [iti_inistructor]> SELECT * FROM Logs;
++--------+---------------------+------------------------------+
+| log_id | log_time            | description                  |
++--------+---------------------+------------------------------+
+|      1 | 2025-09-03 19:24:50 | Track with ID=4 was updated. |
++--------+---------------------+------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [iti_inistructor]>/* 14 */
