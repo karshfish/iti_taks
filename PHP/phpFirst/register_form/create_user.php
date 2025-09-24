@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once "db.php";
 try {
     $writedb = DB::connectWriteDB();
     $readdb = DB::connectReadDB();

@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                 'skill' => $skill
             ]);
         }
-        header('Location: view.php');
+        header("Location: view.php");
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
