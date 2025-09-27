@@ -1,174 +1,152 @@
 <?php
 include 'db.php';
-$user_id = $_GET['id'];
+$user_id = trim($_POST['id'] ?? '');
 try {
     $writeDB = DB::connectWriteDB();
-    $user_stmt = "SELECT u.id, u.first_name, u.last_name, GROUP_CONCAT(s.skill SEPARATOR ', ') AS skills, username, password, address,country
-                                                FROM users u
-                                                LEFT JOIN skills s ON u.id = s.user_id
-                                                WHERE u.id=:id
-                                                GROUP BY u.id, u.first_name, u.last_name;";
-    $user = $writeDB->prepare($user_stmt);
-    $user->execute(['id' => $user_id]);
-    $user_info = $user->fetch(PDO::FETCH_ASSOC);
-    // print_r($user_info);
-} catch (PDOException $e) {
-    $e->getMessage();
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit User</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    // Fetch existing user
+    $user_stmt = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.address, u.country, u.photo,
+                        GROUP_CONCAT(s.skill SEPARATOR ', ') AS skills
+                  FROM users u
+                  LEFT JOIN skills s ON u.id = s.user_id
+                  WHERE u.id=:id
+                  GROUP BY u.id";
+    $stmt = $writeDB->prepare($user_stmt);
+    $stmt->execute(['id' => $user_id]);
+    $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+    $old_skills = array_map('trim', explode(',', $user_info['skills'] ?? ''));
+    $errors = [];
 
-<body class="bg-light">
+    if ($_SERVER["REQUEST_METHOD"] === 'POST') {
+        // Validation
 
-    <div class="container mt-5">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Edit user <?php echo $user_info['first_name'] ?></h4>
-                <form action="" method="post">
-                    <!-- First Name -->
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name">
-                    </div>
+        $firstName = trim($_POST['firstName'] ?? '');
+        $lastName  = trim($_POST['lastName'] ?? '');
+        $address   = trim($_POST['address'] ?? '');
+        $country   = $_POST['country'] ?? '';
+        $username  = trim($_POST['username'] ?? '');
+        $password  = $_POST['password'] ?? '';
+        $skills    = $_POST['skills'] ?? [];
+        $photo     = $_FILES['photo'] ?? null;
+        $errors = [];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $photoPath = $user_info['photo']; // keep old photo by default
 
-                    <!-- Last Name -->
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name">
-                    </div>
+        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'assets/img/'; // create this folder if not exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
 
-                    <!-- Address -->
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address">
-                    </div>
+            $fileTmpPath = $_FILES['photo']['tmp_name'];
+            $fileName = uniqid() . '_' . basename($_FILES['photo']['name']);
+            $destPath = $uploadDir . $fileName;
 
-                    <!-- Country -->
-                    <div class="mb-3">
-                        <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" name="country">
-                            <option selected disabled>Select your country</option>
-                            <option value="Egypt">Egypt</option>
-                            <option value="USA">USA</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Canada">Canada</option>
-                        </select>
-                    </div>
-
-                    <!-- Gender -->
-                    <div class="mb-3">
-                        <label class="form-label d-block">Gender</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                    </div>
-
-                    <!-- Skills -->
-                    <div class="mb-3">
-                        <label class="form-label d-block">Skills</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="skills[]" value="PHP" id="php">
-                            <label class="form-check-label" for="php">PHP</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="skills[]" value="MySQL" id="mysql">
-                            <label class="form-check-label" for="mysql">MySQL</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="skills[]" value="Postgree" id="postgree">
-                            <label class="form-check-label" for="postgree">Postgree</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="skills[]" value="J2SE" id="j2se">
-                            <label class="form-check-label" for="j2se">J2SE</label>
-                        </div>
-                    </div>
-
-                    <!-- Username -->
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username">
-                    </div>
-
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-                    </div>
-
-                    <!-- Submit -->
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </form>
-                <a href="view.php" class="btn btn-primary mt-2">View Page</a>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
-<?php
-if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-
-    $firstName = $_POST['firstName'] ?? null;
-    $lastName  = $_POST['lastName'] ?? null;
-    $address   = $_POST['address'] ?? null;
-    $country   = $_POST['country'] ?? null;
-    $username  = $_POST['username'] ?? null;
-    $password  = $_POST['password'] ?? null;
-    $skills = $_POST['skills'] ?? null;
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    try {
-        $sql = "UPDATE users SET 
-        first_name = :first_name,
-        last_name = :last_name,
-        address = :address,
-        country = :country,
-        username = :username,
-        password = :password
-        WHERE id = :id;";
-
-        $stmt = $writeDB->prepare($sql);
-
-        $stmt->execute([
-            ':first_name' => $firstName,
-            ':last_name'  => $lastName,
-            ':address'    => $address,
-            ':country'    => $country,
-            ':username'   => $username,
-            ':password'   => $hashedPassword,
-            'id' => $user_id
-        ]);
-        $last_usere_id = $writeDB->lastInsertId();
-        $user_skills = "UPDATE skills
-                        SET skill = :skill
-                        WHERE user_id = :id;";
-        foreach ($skills as $skill) {
-            $stmt = $writeDB->prepare($user_skills);
-            $stmt->execute([
-                'user_id' => $last_usere_id,
-                'skill' => $skill
-            ]);
+            $allowed = ['image/jpeg', 'image/png'];
+            if (!in_array($_FILES['photo']['type'], $allowed)) {
+                $errors['photo'] = "Only JPG and PNG images are allowed.";
+            } else {
+                if (move_uploaded_file($fileTmpPath, $destPath)) {
+                    // delete old photo if exists
+                    if (!empty($user_info['photo']) && file_exists($user_info['photo'])) {
+                        unlink($user_info['photo']);
+                    }
+                    $photoPath = $destPath;
+                }
+            }
         }
+<<<<<<< Updated upstream
+=======
+
+        // First name
+        if (empty($firstName) || strlen($firstName) < 2) {
+            $errors['firstName'] = "First name must be at least 2 characters.";
+        }
+
+        // Last name
+        if (empty($lastName) || strlen($lastName) < 2) {
+            $errors['lastName'] = "Last name must be at least 2 characters.";
+        }
+
+        // Username
+        if (empty($username) || strlen($username) < 4) {
+            $errors['username'] = "Username must be at least 4 characters.";
+        }
+
+        // Password
+        if (empty($password) || strlen($password) < 6) {
+            $errors['password'] = "Password must be at least 6 characters.";
+        }
+
+        // Country
+        if (empty($country)) {
+            $errors['country'] = "Please select a country.";
+        }
+
+        // Photo (if uploaded)
+        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            $allowed = ['image/jpeg', 'image/png'];
+            if (!in_array($_FILES['photo']['type'], $allowed)) {
+                $errors['photo'] = "Only JPG and PNG images are allowed.";
+            }
+        }
+        if (!empty($errors)) {
+            session_start();
+            $_SESSION['errors'] = $errors;
+            $_SESSION['old_input'] = $_POST; // keep old input values
+            $_SESSION['old_user_info'] = $user_info;
+            $_SESSION['old_user_skills'] = $old_skills;
+
+            header("Location: index.php");
+            exit;
+        }
+
+        if (empty($errors)) {
+            try {
+                $sql = "UPDATE users SET 
+                            first_name = :first_name,
+                            last_name = :last_name,
+                            address = :address,
+                            country = :country,
+                            username = :username,
+                            password = :password,
+                            photo = :photo
+                        WHERE id = :id;";
+                $stmt = $writeDB->prepare($sql);
+                $stmt->execute([
+                    ':first_name' => $firstName,
+                    ':last_name'  => $lastName,
+                    ':address'    => $address,
+                    ':country'    => $country,
+                    ':username'   => $username,
+                    ':password'   => $hashedPassword,
+                    ':photo'      => $photoPath,
+                    ':id'         => $user_id
+                ]);
+
+                // Update skills
+                $deleteSkills = $writeDB->prepare("DELETE FROM skills WHERE user_id = :id");
+                $deleteSkills->execute([':id' => $user_id]);
+
+                $insertSkill = $writeDB->prepare("INSERT INTO skills (user_id, skill) VALUES (:id, :skill)");
+                foreach ($skills as $skill) {
+                    $insertSkill->execute([':id' => $user_id, ':skill' => $skill]);
+                }
+
+                header("Location: view.php");
+                exit;
+            } catch (PDOException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
         header("Location: view.php");
     } catch (PDOException $e) {
         echo $e->getMessage();
+>>>>>>> ee4cd4500682436a7af60470a696f19cb6878dec
     }
+} catch (PDOException $e) {
+    die($e->getMessage());
 }

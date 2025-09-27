@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+$user = $_SESSION['user'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,19 +22,23 @@
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h4 class="card-title mb-4">Users Table</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Users Table</h4>
+                    <a href="index.php" class="btn btn-success">+ Add User</a>
+                </div>
 
-                <table class="table table-bordered table-striped text-center">
+                <table class="table table-bordered table-striped text-center align-middle">
                     <thead class="table-dark">
                         <tr>
+                            <th>Photo</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Skills</th>
                             <th>Username</th>
                             <th>Password</th>
                             <th>Address</th>
-                            <th>view</th>
-                            <th>Dlete</th>
+                            <th>View</th>
+                            <th>Delete</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -38,44 +50,61 @@
                         } catch (PDOException $e) {
                             echo $e->getMessage();
                         }
+
                         try {
-                            $users_stmt = "SELECT u.id, u.first_name, u.last_name, GROUP_CONCAT(s.skill SEPARATOR ', ') AS skills, username, password, address
-                                                FROM users u
-                                                LEFT JOIN skills s ON u.id = s.user_id
-                                                GROUP BY u.id, u.first_name, u.last_name;";
+                            $users_stmt = "SELECT u.id, u.first_name, u.last_name, u.photo,
+                                                  GROUP_CONCAT(s.skill SEPARATOR ', ') AS skills,
+                                                  username, password, address
+                                           FROM users u
+                                           LEFT JOIN skills s ON u.id = s.user_id
+                                           GROUP BY u.id, u.first_name, u.last_name, u.photo;";
                             $users = $readbd->prepare($users_stmt);
                             $users->execute();
                             $users_info = $users->fetchAll(PDO::FETCH_ASSOC);
-                            // print_r($users_info);
+
                             foreach ($users_info as $user) {
                                 echo "<tr>";
                                 $id = $user['id'];
-                                $firstName = $user['first_name'] ?? null;
+
+                                // Photo
+                                $photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : '';
+                                echo "<td><img src= '$photo' alt='User Photo' width='60' height='60' class='rounded-circle'></td>";
+
+                                // First & Last Name
+                                $firstName = htmlspecialchars($user['first_name'] ?? '');
                                 echo "<td>$firstName</td>";
-                                $lastName  = $user['last_name'] ?? null;
+
+                                $lastName = htmlspecialchars($user['last_name'] ?? '');
                                 echo "<td>$lastName</td>";
-                                $skills = $user['skills'] ?? null;
+
+                                // Skills
+                                $skills = htmlspecialchars($user['skills'] ?? '');
                                 echo "<td>$skills</td>";
-                                $username  = $user['username'] ?? null;
+
+                                // Username
+                                $username = htmlspecialchars($user['username'] ?? '');
                                 echo "<td>$username</td>";
-                                $password  = $user['password'] ?? null;
+
+                                // Password 
+                                $password = htmlspecialchars($user['password'] ?? '');
                                 echo "<td>$password</td>";
-                                $address   = $user['address'] ?? null;
+
+                                // Address
+                                $address = htmlspecialchars($user['address'] ?? '');
                                 echo "<td>$address</td>";
-                                echo "<td><a href='view_user.php?id=$id' class='btn btn-primary'>View</a></td>";
-                                echo "<td><a href='delete.php?id=$id' class='btn btn-danger'>Delete</a></td>";
-                                echo "<td><a href='edit.php?id=$id' class='btn btn-warning'>Edit</a></td>";
+
+                                // Actions
+                                echo "<td><a href='view_user.php?id=$id' class='btn btn-primary btn-sm'>View</a></td>";
+                                echo "<td><a href='delete.php?id=$id' class='btn btn-danger btn-sm'>Delete</a></td>";
+                                echo "<td><a href='edit_view.php?id=$id' class='btn btn-warning btn-sm'>Edit</a></td>";
                                 echo "</tr>";
                             }
                         } catch (PDOException $e) {
                             echo $e->getMessage();
                         }
                         ?>
-
-
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
