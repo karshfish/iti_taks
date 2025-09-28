@@ -93,7 +93,7 @@ $user = $_SESSION['user'];
                                 // Username
                                 echo "<td>" . htmlspecialchars($userRow['username'] ?? '') . "</td>";
 
-                                // Password (⚠️ best not to show real passwords in production)
+                                // Password 
                                 echo "<td>" . htmlspecialchars($userRow['password'] ?? '') . "</td>";
 
                                 // Address

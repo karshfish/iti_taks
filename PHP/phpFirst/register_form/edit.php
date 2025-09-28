@@ -1,8 +1,14 @@
 <?php
 include 'db.php';
+session_start();
+
 $user_id = trim($_POST['id'] ?? '');
+if (!$user_id) {
+    die("User ID missing.");
+}
+
 try {
-    $writeDB = DB::connectWriteDB();
+    $db = DB::connectWriteDB();
 
     // Fetch existing user
     $user_stmt = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.address, u.country, u.photo,
@@ -11,15 +17,18 @@ try {
                   LEFT JOIN skills s ON u.id = s.user_id
                   WHERE u.id=:id
                   GROUP BY u.id";
-    $stmt = $writeDB->prepare($user_stmt);
+    $stmt = $db->prepare($user_stmt);
     $stmt->execute(['id' => $user_id]);
     $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$user_info) {
+        die("User not found.");
+    }
+
     $old_skills = array_map('trim', explode(',', $user_info['skills'] ?? ''));
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-        // Validation
-
+        // --- Collect inputs ---
         $firstName = trim($_POST['firstName'] ?? '');
         $lastName  = trim($_POST['lastName'] ?? '');
         $address   = trim($_POST['address'] ?? '');
@@ -27,16 +36,12 @@ try {
         $username  = trim($_POST['username'] ?? '');
         $password  = $_POST['password'] ?? '';
         $skills    = $_POST['skills'] ?? [];
-        $photo     = $_FILES['photo'] ?? null;
-        $errors = [];
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $photoPath = $user_info['photo']; // keep old photo by default
 
-        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'assets/img/'; // make sure this folder exists
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
+        // --- Handle photo upload ---
+        if (!empty($_FILES['photo']['name']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'assets/img/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
             $fileTmpPath = $_FILES['photo']['tmp_name'];
             $fileName = uniqid() . '_' . basename($_FILES['photo']['name']);
@@ -55,101 +60,51 @@ try {
                 }
             }
         }
-        if (!empty($user_info['photo'])) {
-            $oldPhotoPath = __DIR__ . '/' . $user_info['photo']; // get absolute path
-            if (file_exists($oldPhotoPath)) {
-                unlink($oldPhotoPath);
-            }
-        }
 
+        // --- Validation ---
+        if (empty($firstName) || strlen($firstName) < 2) $errors['firstName'] = "First name must be at least 2 characters.";
+        if (empty($lastName)  || strlen($lastName) < 2) $errors['lastName']  = "Last name must be at least 2 characters.";
+        if (empty($username)  || strlen($username) < 4) $errors['username'] = "Username must be at least 4 characters.";
+        if (empty($password)  || strlen($password) < 6) $errors['password'] = "Password must be at least 6 characters.";
+        if (empty($country))  $errors['country'] = "Please select a country.";
 
-
-        // First name
-        if (empty($firstName) || strlen($firstName) < 2) {
-            $errors['firstName'] = "First name must be at least 2 characters.";
-        }
-
-        // Last name
-        if (empty($lastName) || strlen($lastName) < 2) {
-            $errors['lastName'] = "Last name must be at least 2 characters.";
-        }
-
-        // Username
-        if (empty($username) || strlen($username) < 4) {
-            $errors['username'] = "Username must be at least 4 characters.";
-        }
-
-        // Password
-        if (empty($password) || strlen($password) < 6) {
-            $errors['password'] = "Password must be at least 6 characters.";
-        }
-
-        // Country
-        if (empty($country)) {
-            $errors['country'] = "Please select a country.";
-        }
-
-        // Photo (if uploaded)
-        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-            $allowed = ['image/jpeg', 'image/png'];
-            if (!in_array($_FILES['photo']['type'], $allowed)) {
-                $errors['photo'] = "Only JPG and PNG images are allowed.";
-            }
-        }
+        // --- If errors, redirect back with session ---
         if (!empty($errors)) {
-            session_start();
             $_SESSION['errors'] = $errors;
-            $_SESSION['old_input'] = $_POST; // keep old input values
+            $_SESSION['old_input'] = $_POST;
             $_SESSION['old_user_info'] = $user_info;
             $_SESSION['old_user_skills'] = $old_skills;
-
             header("Location: index.php");
             exit;
         }
 
-        if (empty($errors)) {
-            try {
-                $sql = "UPDATE users SET 
-                            first_name = :first_name,
-                            last_name = :last_name,
-                            address = :address,
-                            country = :country,
-                            username = :username,
-                            password = :password,
-                            photo = :photo
-                        WHERE id = :id;";
-                $stmt = $writeDB->prepare($sql);
-                $stmt->execute([
-                    ':first_name' => $firstName,
-                    ':last_name'  => $lastName,
-                    ':address'    => $address,
-                    ':country'    => $country,
-                    ':username'   => $username,
-                    ':password'   => $hashedPassword,
-                    ':photo'      => $photoPath,
-                    ':id'         => $user_id
-                ]);
+        // --- If valid, update DB ---
+        try {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                // Update skills
-                $deleteSkills = $writeDB->prepare("DELETE FROM skills WHERE user_id = :id");
-                $deleteSkills->execute([':id' => $user_id]);
+            // ✅ Update user using helper
+            DB::update(
+                "users",
+                ["first_name", "last_name", "address", "country", "username", "password", "photo"],
+                [$firstName, $lastName, $address, $country, $username, $hashedPassword, $photoPath],
+                ["id" => $user_id]
+            );
 
-                $insertSkill = $writeDB->prepare("INSERT INTO skills (user_id, skill) VALUES (:id, :skill)");
-                foreach ($skills as $skill) {
-                    $insertSkill->execute([':id' => $user_id, ':skill' => $skill]);
-                }
-
-                header("Location: view.php");
-                exit;
-            } catch (PDOException $e) {
-                $errors[] = $e->getMessage();
+            // ✅ Update skills using helpers
+            DB::delete("skills", ["user_id" => $user_id]);
+            foreach ($skills as $skill) {
+                DB::create("skills", ["user_id", "skill"], [$user_id, $skill]);
             }
-        }
 
-        header("Location: view.php");
+            header("Location: view.php");
+            exit;
+        } catch (PDOException $e) {
+            $errors[] = $e->getMessage();
+            $_SESSION['errors'] = $errors;
+            header("Location: index.php");
+            exit;
+        }
     }
-} catch (PDOException $e) {
-    echo $e->getMessage();
 } catch (PDOException $e) {
     die($e->getMessage());
 }
