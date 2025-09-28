@@ -33,7 +33,7 @@ try {
         $photoPath = $user_info['photo']; // keep old photo by default
 
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'assets/img/'; // create this folder if not exists
+            $uploadDir = 'assets/img/'; // make sure this folder exists
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -55,6 +55,13 @@ try {
                 }
             }
         }
+        if (!empty($user_info['photo'])) {
+            $oldPhotoPath = __DIR__ . '/' . $user_info['photo']; // get absolute path
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath);
+            }
+        }
+
 
 
         // First name
