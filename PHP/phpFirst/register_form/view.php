@@ -19,6 +19,19 @@ $user = $_SESSION['user'];
 
 <body class="bg-light">
 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">User Management</a>
+            <div class="d-flex">
+                <span class="navbar-text text-white me-3">
+                    Logged in as: <?php echo htmlspecialchars($user['username']); ?>
+                </span>
+                <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
@@ -62,36 +75,29 @@ $user = $_SESSION['user'];
                             $users->execute();
                             $users_info = $users->fetchAll(PDO::FETCH_ASSOC);
 
-                            foreach ($users_info as $user) {
+                            foreach ($users_info as $userRow) {
                                 echo "<tr>";
-                                $id = $user['id'];
+                                $id = $userRow['id'];
 
                                 // Photo
-                                $photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : '';
-                                echo "<td><img src= '$photo' alt='User Photo' width='60' height='60' class='rounded-circle'></td>";
+                                $photo = !empty($userRow['photo']) ? htmlspecialchars($userRow['photo']) : 'assets/img/default.png';
+                                echo "<td><img src='$photo' alt='User Photo' width='60' height='60' class='rounded-circle'></td>";
 
                                 // First & Last Name
-                                $firstName = htmlspecialchars($user['first_name'] ?? '');
-                                echo "<td>$firstName</td>";
-
-                                $lastName = htmlspecialchars($user['last_name'] ?? '');
-                                echo "<td>$lastName</td>";
+                                echo "<td>" . htmlspecialchars($userRow['first_name'] ?? '') . "</td>";
+                                echo "<td>" . htmlspecialchars($userRow['last_name'] ?? '') . "</td>";
 
                                 // Skills
-                                $skills = htmlspecialchars($user['skills'] ?? '');
-                                echo "<td>$skills</td>";
+                                echo "<td>" . htmlspecialchars($userRow['skills'] ?? '') . "</td>";
 
                                 // Username
-                                $username = htmlspecialchars($user['username'] ?? '');
-                                echo "<td>$username</td>";
+                                echo "<td>" . htmlspecialchars($userRow['username'] ?? '') . "</td>";
 
-                                // Password 
-                                $password = htmlspecialchars($user['password'] ?? '');
-                                echo "<td>$password</td>";
+                                // Password (⚠️ best not to show real passwords in production)
+                                echo "<td>" . htmlspecialchars($userRow['password'] ?? '') . "</td>";
 
                                 // Address
-                                $address = htmlspecialchars($user['address'] ?? '');
-                                echo "<td>$address</td>";
+                                echo "<td>" . htmlspecialchars($userRow['address'] ?? '') . "</td>";
 
                                 // Actions
                                 echo "<td><a href='view_user.php?id=$id' class='btn btn-primary btn-sm'>View</a></td>";
