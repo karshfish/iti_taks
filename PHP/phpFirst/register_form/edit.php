@@ -55,8 +55,7 @@ try {
                 }
             }
         }
-<<<<<<< Updated upstream
-=======
+
 
         // First name
         if (empty($firstName) || strlen($firstName) < 2) {
@@ -139,14 +138,11 @@ try {
                 $errors[] = $e->getMessage();
             }
         }
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
+
         header("Location: view.php");
-    } catch (PDOException $e) {
-        echo $e->getMessage();
->>>>>>> ee4cd4500682436a7af60470a696f19cb6878dec
     }
+} catch (PDOException $e) {
+    echo $e->getMessage();
 } catch (PDOException $e) {
     die($e->getMessage());
 }
