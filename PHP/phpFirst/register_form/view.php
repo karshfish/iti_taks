@@ -74,6 +74,7 @@ $user = $_SESSION['user'];
                             $users = $readbd->prepare($users_stmt);
                             $users->execute();
                             $users_info = $users->fetchAll(PDO::FETCH_ASSOC);
+                            // print_r($users_info);
 
                             foreach ($users_info as $userRow) {
                                 echo "<tr>";

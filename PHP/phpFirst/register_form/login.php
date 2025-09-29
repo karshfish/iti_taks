@@ -48,7 +48,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
                     </div>
 
                     <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="create_user.php" class="btn btn-link">Register</a>
+                    <a href="index.php" class="btn btn-link">Register</a>
                 </form>
             </div>
         </div>
