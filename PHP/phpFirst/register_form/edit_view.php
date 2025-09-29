@@ -2,28 +2,23 @@
 include 'db.php';
 session_start();
 
-$writeDB = DB::connectWriteDB();
-
-// Get user by id
 $user_id = $_GET['id'] ?? null;
 if (!$user_id) {
     die("User ID missing.");
 }
 
-$stmt = $writeDB->prepare("SELECT u.*, GROUP_CONCAT(s.skill) as skills 
-                           FROM users u
-                           LEFT JOIN skills s ON u.id = s.user_id
-                           WHERE u.id = :id
-                           GROUP BY u.id");
-$stmt->execute([':id' => $user_id]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$user) {
+// ===== Get user & skills =====
+$userRows = DB::read("users", ["id" => $user_id]);
+if (empty($userRows)) {
     die("User not found.");
 }
+$user = $userRows[0];
+
+// get skills manually (since DB::read can’t do JOIN)
+$skillRows = DB::read("skills", ["user_id" => $user_id]);
+$old_skills = array_column($skillRows, "skill");
 
 $errors = [];
-$old_skills = $user['skills'] ? explode(',', $user['skills']) : [];
 
 // ===== Handle form submission =====
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -65,38 +60,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    // If no errors, update
+    // ===== Update if no errors =====
     if (empty($errors)) {
         try {
             $hashedPassword = !empty($password)
                 ? password_hash($password, PASSWORD_DEFAULT)
                 : $user['password']; // keep old if not changed
 
-            $update = $writeDB->prepare("UPDATE users SET 
-                            first_name = :fn,
-                            last_name = :ln,
-                            address = :addr,
-                            country = :country,
-                            username = :username,
-                            password = :pwd,
-                            photo = :photo
-                        WHERE id = :id");
-            $update->execute([
-                ':fn' => $firstName,
-                ':ln' => $lastName,
-                ':addr' => $address,
-                ':country' => $country,
-                ':username' => $username,
-                ':pwd' => $hashedPassword,
-                ':photo' => $photoPath,
-                ':id' => $user_id
-            ]);
+            DB::update("users", [
+                "first_name" => $firstName,
+                "last_name"  => $lastName,
+                "address"    => $address,
+                "country"    => $country,
+                "username"   => $username,
+                "password"   => $hashedPassword,
+                "photo"      => $photoPath
+            ], ["id" => $user_id]);
 
-            // Update skills
-            $writeDB->prepare("DELETE FROM skills WHERE user_id = :id")->execute([':id' => $user_id]);
-            $insertSkill = $writeDB->prepare("INSERT INTO skills (user_id, skill) VALUES (:id, :skill)");
+            // update skills
+            DB::delete("skills", ["user_id" => $user_id]);
             foreach ($skills as $skill) {
-                $insertSkill->execute([':id' => $user_id, ':skill' => $skill]);
+                DB::create("skills", ["user_id" => $user_id, "skill" => $skill]);
             }
 
             header("Location: view.php");

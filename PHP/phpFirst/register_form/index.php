@@ -147,7 +147,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
                     <!-- Submit -->
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
-                <a href="view.php" class="btn btn-secondary mt-2">View Page</a>
+                <a href="login.php" class="btn btn-secondary mt-2">Already has an account</a>
             </div>
         </div>
     </div>
