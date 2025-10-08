@@ -22,8 +22,11 @@ export class Products implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (data) => {
-        this.products = data.products;
-        this.loading = false;
+        setTimeout(() => {
+          
+          this.products = data.products;
+          this.loading = false;
+        }, 2000);
       },
       error: () => {
         this.error = 'Failed to load products';
