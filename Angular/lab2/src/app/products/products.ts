@@ -23,7 +23,7 @@ export class Products implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data) => {
         setTimeout(() => {
-          
+           
           this.products = data.products;
           this.loading = false;
         }, 2000);
