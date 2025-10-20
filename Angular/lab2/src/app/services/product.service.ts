@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
   private apiUrl = 'products.json';
@@ -12,7 +12,6 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<{ products: Product[] }> {
-  return this.http.get<{ products: Product[] }>(this.apiUrl);
-}
-
+    return this.http.get<{ products: Product[] }>(this.apiUrl);
+  }
 }

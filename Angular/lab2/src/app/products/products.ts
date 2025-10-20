@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product.service';
@@ -7,7 +8,11 @@ import { ProductService } from '../services/product.service';
   selector: 'app-products',
   templateUrl: './products.html',
   standalone: true,
-  imports: [CommonModule],
+
+  imports: [CommonModule, RouterLink],
+
+
+
   styleUrls: ['./products.css'],
 })
 export class Products implements OnInit {
@@ -21,13 +26,22 @@ export class Products implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (data) => {
-        this.products = data.products;
-        this.loading = false;
+
+        setTimeout(() => {
+           
+          this.products = data.products;
+          this.loading = false;
+        }, 2000);
+
       },
       error: () => {
         this.error = 'Failed to load products';
         this.loading = false;
       },
     });
+  }
+  addToCart(product: Product) {
+    console.log('Added to cart:', product);
+    alert(`${product.title} added to cart!`);
   }
 }
