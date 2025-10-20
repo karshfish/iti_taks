@@ -8,7 +8,11 @@ import { ProductService } from '../services/product.service';
   selector: 'app-products',
   templateUrl: './products.html',
   standalone: true,
+
   imports: [CommonModule, RouterLink],
+
+
+
   styleUrls: ['./products.css'],
 })
 export class Products implements OnInit {
@@ -22,11 +26,13 @@ export class Products implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (data) => {
+
         setTimeout(() => {
            
           this.products = data.products;
           this.loading = false;
         }, 2000);
+
       },
       error: () => {
         this.error = 'Failed to load products';
